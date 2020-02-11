@@ -1,4 +1,4 @@
-# Proyecto de Software: Red de Investigadores
+# Proyecto de Software: Venta de comida a domicilio
 ## UNAM, Facultad de Ciencias
 ## Ingeniería de Software 2020-2
 
