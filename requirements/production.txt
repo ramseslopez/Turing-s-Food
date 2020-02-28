@@ -1,0 +1,6 @@
+# PRECAUTION: avoid production dependencies that aren't in development
+
+-r ./base.txt
+
+psycopg2>=2.8.4,<2.9.0 --no-binary psycopg2
+gunicorn==19.9.
