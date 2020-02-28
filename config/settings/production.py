@@ -2,9 +2,6 @@
 
 from .base import *
 
-import sentry_sdk
-from sentry_sdk.integrations.django import DjangoIntegration
-
 # Base
 
 SECRET_KEY = env('DJANGO_SECRET_KEY')
