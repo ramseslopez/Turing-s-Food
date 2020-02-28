@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block meta %}
+<link rel="stylesheet" href="{% static 'css/login.css' %}" />
+{% endblock meta %}
+
+{% block title %}
+<title>TF | Login</title>
+{% endblock title %}
+
+{% block content %}
+<form class="form-signin" method="POST">
+  {% csrf_token %}
+  <img
+    class="mb-4"
+    src="{% static 'img/square-logo.png' %}"
+    alt="Turing's Food Logo"
+    width="72"
+    height="72"
+  />
+  <h1 class="h3 mb-3 font-weight-normal">Iniciar Sesión</h1>
+
+  {% for error in form.non_field_errors %}
+  <div class="alert alert-danger alert-dismissible fade show" role="alert">
+    {{ error }}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  {% endfor %}
+    
+
+  <label for="inputEmail" class="sr-only">Correo Electrónico</label>
+  <input
+    type="email"
+    id="inputEmail"
+    class="form-control{% if form.errors %} is-invalid{% endif %}"
+    placeholder="Correo Electrónico"
+    {% if form.errors %}
+    value="{{form.username.value}}"
+    {% endif %}
+    name="username"
+    autocapitalize="none"
+    autocomplete="username"
+    maxlength="255"
+    required
+    autofocus
+  />
+  <label for="inputPassword" class="sr-only">Contraseña</label>
+  <input
+    type="password"
+    id="inputPassword"
+    class="form-control{% if form.errors %} is-invalid{% endif %}"
+    placeholder="Contraseña"
+    name="password"
+    autocomplete="current-password" 
+    required
+  />
+  <button class="btn btn-lg btn-turing btn-block mt-3" type="submit">
+    Iniciar Sesión
+  </button>
+  <div class="container mt-4">
+    <p class="my-1">¿No tienes cuenta? <a style="color: #7200ff" href="{% url 'users:signup' %}">Regístrate</a></p>
+    <p class="my-1">Ingreso
+      <a style="color: #7200ff">Administrador</a> /
+      <a style="color: #7200ff">Repartidor</a>
+    </p>
+  </div>
+  <p class="mt-5 mb-3 text-muted">&copy; 2020-2021</p>
+</form>
+{% endblock content %}
+
+
+{% block scripts %}
+  <script src="{% static 'js/login.js' %}"></script>
+{% endblock scripts %}
+  

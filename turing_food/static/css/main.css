@@ -1,0 +1,14 @@
+html,
+body {
+  font-family: 'Nunito';
+}
+
+.btn-turing {
+  background-color: #7200ff;
+  color: #fff;
+}
+
+.btn-turing:hover {
+  background-color: #5000b3;
+  color: #fff;
+}

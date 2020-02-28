@@ -1,0 +1,115 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block meta %}
+<link rel="stylesheet" href="{% static 'css/signup.css' %}" />
+{% endblock meta %}
+
+{% block title %}
+<title>TF | Sign Up</title>
+{% endblock title %}
+
+{% block content %}
+<form class="form-signup" method="POST">
+  {% csrf_token %}
+  <img
+    class="mb-4"
+    src="{% static 'img/square-logo.png' %}"
+    alt="Turing's Food Logo"
+    width="72"
+    height="72"
+  />
+  <h1 class="h3 mb-3 font-weight-normal">Regístrate</h1>
+
+  {% for error in form.non_field_errors %}
+  <div class="alert alert-danger alert-dismissible fade show" role="alert">
+    {{ error }}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  {% endfor %}
+
+  {% for error in form.email.errors %}
+  <div class="alert alert-danger alert-dismissible fade show" role="alert">
+    {{ error }}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  {% endfor %}
+
+  <label for="inputEmail" class="sr-only">Correo Electrónico:</label>
+  <input
+    type="email"
+    id="inputEmail"
+    class="form-control{% if form.email.errors %} is-invalid{% endif %}"
+    placeholder="Correo Electrónico"
+    name="email"
+    {% if form.errors %}
+    value="{{form.email.value}}"
+    {% endif %}
+    required
+    autofocus
+  />
+  <label for="inputFirstName" class="sr-only">Nombre(s):</label>
+  <input
+    type="text"
+    id="inputFirstName"
+    class="form-control"
+    placeholder="Nombre(s)"
+    name="first_name"
+    {% if form.errors %}
+    value="{{form.first_name.value}}"
+    {% endif %}
+    required
+  />
+  <label for="inputLastName" class="sr-only">Apellido(s):</label>
+  <input
+    type="text"
+    id="inputLastName"
+    class="form-control"
+    placeholder="Apellido(s)"
+    name="last_name"
+    {% if form.errors %}
+    value="{{form.last_name.value}}"
+    {% endif %}
+    required
+  />
+  <label for="inputPassword" class="sr-only">Contraseña:</label>
+  <input
+    type="password"
+    id="inputPassword"
+    class="form-control{% if form.non_field_errors %} is-invalid{% endif %}"
+    placeholder="Contraseña"
+    name="password"
+    required
+  />
+  <label for="inputPassword" class="sr-only">Confirmar Contraseña:</label>
+  <input
+    type="password"
+    id="inputPasswordConfirmation"
+    class="form-control{% if form.non_field_errors %} is-invalid{% endif %}"
+    placeholder="Confirmar Contraseña"
+    name="password_confirmation"
+    required
+  />
+  <button class="btn btn-lg btn-turing btn-block mt-3" type="submit">
+    Crear Cuenta
+  </button>
+  <div class="container mt-4">
+    <p class="my-0">
+      ¿Ya tienes cuenta?
+      <a style="color: #7200ff" href="{% url 'users:login' %}"
+        >Iniciar sesión</a
+      >
+    </p>
+  </div>
+  <p class="mt-5 mb-3 text-muted">&copy; 2020-2021</p>
+</form>
+{% endblock content %}
+
+{% block scripts %}
+  <script src="{% static 'js/signup.js' %}"></script>
+{% endblock scripts %}
+  
