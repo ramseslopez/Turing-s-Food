@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+
 {% load static %}
 
 {% block title %}
@@ -6,11 +7,21 @@
 {% endblock title %}
 
 {% block content %}
+
+{% include 'header.html' %}
+
   <div class="container mt-5">
     <h1 class="title">
-      Bienvenido, {{ request.user.first_name }}
+      Tu perfil, {{ request.user.first_name }}
     </h1>
-    <a role="button" class="btn btn-warning" href="{% url 'users:logout' %}">Cerrar sesión</a>
+    <div class="data">
+      <ul>
+        <li>{{ request.user.first_name }} {{ request.user.last_name }}</li>
+        <li>{{ request.user.address }}</li>
+        <li>{{ request.user.phone_number }}</li>
+      </ul>
+    </div>
+   <a role="button" class="btn btn-warning" href="{% url 'users:logout' %}">Cerrar sesión</a>
   </div>
 {% endblock content %}
 

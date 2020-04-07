@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="es">
+
+    <head>
+        <meta charset="utf-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+        <link rel="stylesheet" href="{% static 'css/header.css' %}">
+        <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
+    </head>
+
+    <header>
+        <div class="header">
+			<nav>
+            <div class="toggler">
+                <div class="menu"><i class="fa fa-bars" aria-hidden="true"></i></div>
+            </div>
+                <ul>
+					<li><a class="active" href="index.html"><i class="fa fa-home" aria-hidden="true"> Inicio</i></a></li>			
+					<li><a href="menu"><i class="fa fa-cutlery" aria-hidden="true"> Menú</i></a></li>
+					<li><img src="{% static 'img/image.png' %}" width="150" height="50"></li>
+					<li><a href="profile"><i class="fa fa-user" aria-hidden="true"> Perfil</i></a></li>
+					<li><a class="cart" href=""><i class="fa fa-shopping-cart" aria-hidden="true"> Compras</i></a></li>
+				</ul>
+            </nav>		
+		</div>
+        <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+        <script type = "text/javascript">
+
+            $(document).ready(function(){
+                $('.menu').click(function(){
+                    $('ul').toggleClass('active');
+                })
+            })
+
+        </script>	
+    </header>
+
+</html>
