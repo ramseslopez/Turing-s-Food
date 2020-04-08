@@ -18,7 +18,7 @@ ul {
     padding: 0;
 }
 
-ul li {
+.list li {
     list-style: none;
     display: inline-block;
     padding: 20px;

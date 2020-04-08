@@ -1,0 +1,15 @@
+h1 {
+    text-align: center;
+    border-radius: 5em;
+    margin-top: 80px;
+    margin-bottom: 80px;
+}
+
+body {
+    background: #FFF;
+    text-align: center;
+}
+
+.menu {
+    list-style-type: none;
+}

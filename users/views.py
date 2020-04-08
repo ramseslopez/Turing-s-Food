@@ -40,5 +40,23 @@ class MenuView(TemplateView):
     def get(self, request):
         return render(request, self.template_name)
 
+class IndexView(TemplateView):
+    """ Index View """
+
+    template_name = 'index.html'
+
+    def get(self, request):
+        return render(request, self.template_name)
+
+class CartView(TemplateView):
+    """ Cart View """
+
+    template_name = 'cart.html'
+
+    def get(self, request):
+        return render(request, self.template_name)
+
+
+
 
 

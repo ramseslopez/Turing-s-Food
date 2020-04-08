@@ -1,0 +1,25 @@
+#container{
+    width: 600px;
+    padding: 50px;
+    border: 1px solid #fff;
+    background-color: #fff;
+    margin: auto;
+    text-align: left;
+    
+}
+
+#container p {
+    font-style: italic;
+    margin:20px auto;
+}
+
+label {
+    display:block;
+    font-weight:bold;
+}
+
+input{
+    display:inline-block;
+    width:49%;
+    margin:20px auto;
+}
