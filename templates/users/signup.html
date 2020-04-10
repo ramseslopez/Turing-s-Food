@@ -76,18 +76,6 @@
     {% endif %}
     required
   />
-  <label for="inputAddress" class="sr-only">Dirección:</label>
-  <input
-    type="text"
-    id="inputAddress"
-    class="form-control"
-    placeholder="Dirección"
-    name="address"
-    {% if form.errors %}
-    value="{{form.address.value}}"
-    {% endif %}
-    required
-  />
   <label for="inputPhoneNumber" class="sr-only">Teléfono:</label>
   <input
     type="tel"

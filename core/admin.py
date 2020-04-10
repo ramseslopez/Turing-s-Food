@@ -30,3 +30,11 @@ class UserAdmin(BaseUserAdmin):
 
 
 admin.site.register(models.User, UserAdmin)
+admin.site.register(models.Address)
+admin.site.register(models.Menu)
+admin.site.register(models.Restaurnat)
+admin.site.register(models.ShoppingCart)
+admin.site.register(models.Item)
+admin.site.register(models.ItemSet)
+admin.site.register(models.Order)
+admin.site.register(models.Profile)

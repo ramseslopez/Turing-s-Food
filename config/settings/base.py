@@ -114,7 +114,6 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
 
-
 # Authentication
 
 AUTH_USER_MODEL = 'core.User'
