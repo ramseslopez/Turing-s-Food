@@ -12,13 +12,17 @@
 {% block content %}
 <form class="form-signin" method="POST">
   {% csrf_token %}
-  <img
-    class="mb-4"
-    src="{% static 'img/square-logo.png' %}"
-    alt="Turing's Food Logo"
-    width="72"
-    height="72"
-  />
+	  <img class="mb-4"
+  {% if form.errors %} 
+	    src="{% static 'img/sleep.png' %}"
+  {% else %}
+    src="{% static 'img/square-image.png' %}"
+  {% endif %} 
+	    alt="Turing's Food Logo"
+	    width="72"
+	    height="72"
+	  />
+
   <h1 class="h3 mb-3 font-weight-normal">Iniciar Sesión</h1>
 
   {% for error in form.non_field_errors %}
