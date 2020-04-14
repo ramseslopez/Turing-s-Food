@@ -1,6 +1,8 @@
 """Production settings."""
 
 from .base import *
+import sentry_sdk
+from sentry_sdk.integrations.django import DjangoIntegration
 
 # Base
 
@@ -65,3 +67,9 @@ MIDDLEWARE.insert(1, 'whitenoise.middleware.WhiteNoiseMiddleware')
 # DEFAULT_FILE_STORAGE = 'storages.backends.dropbox.DropBoxStorage'
 # DROPBOX_OAUTH2_TOKEN = env('DROPBOX_OAUTH2_TOKEN')
 
+# Sentry
+sentry_sdk.init(
+    dsn="https://de8c0e937d1642deb16a585a9f881495@o253191.ingest.sentry.io/5199405",
+    integrations=[DjangoIntegration()],
+    send_default_pii=True
+)
