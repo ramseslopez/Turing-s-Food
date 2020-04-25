@@ -55,7 +55,6 @@ class SignupForm(forms.Form):
         email = data.get('email')
         first_name = data.get('first_name')
         last_name = data.get('last_name')
-        address = data.get('address')
         phone_number = data.get('phone_number')
         data.pop('password_confirmation')
 
