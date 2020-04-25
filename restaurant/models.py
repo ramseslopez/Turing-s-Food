@@ -1,10 +1,10 @@
 from django.db import models
 from core.models import User
-from core01.models import Address
+from info_user.models import Address
 
 # Create your models here.
 
-class Restaurnat(models.Model):
+class Restaurant(models.Model):
     """ Restaurant model """
 
     user_id = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -16,7 +16,7 @@ class Restaurnat(models.Model):
 class Menu(models.Model):
     """ Menu model """
 
-    restaurant_id = models.ForeignKey(Restaurnat, on_delete=models.CASCADE)
+    restaurant_id = models.ForeignKey(Restaurant, on_delete=models.CASCADE)
 
 
 class Item(models.Model):

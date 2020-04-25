@@ -27,9 +27,9 @@ THIRD_PARTY_APPS = [
 
 LOCAL_APPS = [
     'core',
-    'core01',
-    'core02',
-    'core03',
+    'info_user',
+    'restaurant',
+    'orders',
     'users',
 ]
 

@@ -14,7 +14,7 @@ class Address(models.Model):
     zip_code = models.IntegerField()
     town = models.CharField(max_length=255)
     state = models.CharField(max_length=255)
-
+    
 
 class Profile(models.Model):
     """ Profile model """

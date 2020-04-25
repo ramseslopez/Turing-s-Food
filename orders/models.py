@@ -1,7 +1,7 @@
 from django.db import models
 from core.models import User
-from core02.models import Item
-from core01.models import Address
+from restaurant.models import Item
+from info_user.models import Address
 
 # Create your models here.
 
