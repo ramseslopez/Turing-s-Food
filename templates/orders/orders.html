@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block meta %}
+<link rel="stylesheet" href="{% static 'css/orders.css' %}" />
+{% endblock meta %}
+
+{% block content %}
+
+{% include 'header.html' %}
+
+<section class="container content-section">
+            <h2 class="section-header">Pedidos</h2>
+            <div class="order-row">
+                <span class="order-id order-header order-column">ID</span>
+                <span class="order-price order-header order-column">Precio</span>
+                <span class="order-status order-header order-column">Estado</span>
+            </div>
+            <div class="order-items">
+            </div>
+
+{% endblock content %}
+
+

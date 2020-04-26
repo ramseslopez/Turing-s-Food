@@ -13,5 +13,5 @@ urlpatterns = [
     path('logout/', LogoutView.as_view(), name='logout'),
     path('profile/', views.ProfileView.as_view(), name='profile'),
     path('menu/', views.MenuView.as_view(), name = 'menu'),
-    path('cart/', views.CartView.as_view(), name = 'cart'),
+    path('orders/', views.OrdersView.as_view(), name = 'orders'),
 ]

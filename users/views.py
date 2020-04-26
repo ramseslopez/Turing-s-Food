@@ -32,10 +32,11 @@ class ProfileView(LoginRequiredMixin, TemplateView):
     """User registry"""
     template_name = 'users/profile.html'
 
+
 class MenuView(TemplateView):
     """ Menu View """
 
-    template_name = 'restautant/menu.html'
+    template_name = 'restaurant/menu.html'
 
     def get(self, request):
         return render(request, self.template_name)
@@ -48,10 +49,10 @@ class IndexView(TemplateView):
     def get(self, request):
         return render(request, self.template_name)
 
-class CartView(TemplateView):
-    """ Cart View """
+class OrdersView(TemplateView):
+    """ Orders View """
 
-    template_name = 'orders/cart.html'
+    template_name = 'orders/orders.html'
 
     def get(self, request):
         return render(request, self.template_name)
