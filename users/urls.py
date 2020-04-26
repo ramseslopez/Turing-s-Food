@@ -11,4 +11,5 @@ urlpatterns = [
     path('signup/', views.SignupView.as_view(), name='signup'),
     path('logout/', LogoutView.as_view(), name='logout'),
     path('profile/', views.ProfileView.as_view(), name='profile'),
+    path('confirmation_send/', views.EmailConfirmation.as_view(), name='confirmation_send'),
 ]

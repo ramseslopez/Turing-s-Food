@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block meta %}
+<link rel="stylesheet" href="{% static 'css/signup.css' %}" />
+{% endblock meta %}
+
+{% block title %}
+<title>¡Parry te envio algo!</title>
+{% endblock title %}
+
+{% block content %}
+	  <img class="mb-4"
+	    src="{% static 'img/emailSend.png' %}"
+	    alt="Turing's Food Logo"
+	    width="230"
+	    height="230"}
+    />
+
+<div class="container mt-5">
+    <h1 class="title">
+      Parry ha enviado tu código de confirmacion a: {{ request.user.email }}, ¡No lo hagas esperar!
+    </h1>
+    <a role="button" class="btn btn-warning" href="{% url 'users:profile' %}">Entendido</a>
+  </div>
+{% endblock content %}
+
+{% block scripts %}
+  <script src="{% static 'js/signup.js' %}"></script>
+{% endblock scripts %}
+  
