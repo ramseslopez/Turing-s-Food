@@ -17,8 +17,8 @@ urlpatterns = [
         name='confirmation_sent'
     ),
     path(
-        route='email-confirmation/<str:token>',
-        view=views.EmailConfirmation.as_view(),
-        name='email_confirmation'
+        route='activate-account/<int:pk>/<str:token>/',
+        view=views.ActivateAccount.as_view(),
+        name='activate_account'
     ),
 ]

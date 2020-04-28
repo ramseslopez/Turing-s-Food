@@ -1,10 +1,11 @@
 """Users app views"""
 
 from django.contrib import messages
-from django.contrib.auth import views as auth_views, login
+from django.contrib.auth import views as auth_views, login, get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.views.generic import FormView, TemplateView
+from django.shortcuts import redirect
 
 from .forms import SignupForm
 from .utils import send_email_confirmation, check_token
@@ -32,7 +33,7 @@ class SignupView(FormView):
                 f'{user.email}, ¡No lo hagas esperar!'
             )
         )
-        send_email_confirmation(self.request)
+        send_email_confirmation(user, self.request)
         return super().form_valid(form)
 
 
@@ -46,15 +47,22 @@ class ConfirmationSent(TemplateView):
     template_name = 'users/confirmation-sent.html'
 
 
-class EmailConfirmation(LoginRequiredMixin, TemplateView):
-    """Confirms an email"""
-    template_name = 'users/email-confirmation.html'
+class ActivateAccount(TemplateView):
+    """Activates an account"""
+    template_name = 'users/activation-failed.html'
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        if 'success' not in context:
-            context['success'] = check_token(
-                user=self.request.user,
-                token=self.kwargs.get('token')
-            )
-        return context
+    def get(self, request, *args, **kwargs):
+        """Checks token and activates it"""
+        user = get_user_model().objects.get(pk=self.kwargs.get('pk'))
+        valid_token = check_token(
+            user=user,
+            token=self.kwargs.get('token')
+        )
+
+        if valid_token:
+            user.is_active = True
+            user.save()
+            login(request, user)
+            return redirect('users:profile')
+
+        return super().get(request, *args, **kwargs)
