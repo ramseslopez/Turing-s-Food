@@ -122,6 +122,12 @@ LOGIN_URL = 'users:login'
 LOGIN_REDIRECT_URL = 'users:profile'
 LOGOUT_REDIRECT_URL = 'users:login'
 
+# Gmail 
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+
 # Security
 SESSION_COOKIE_HTTPONLY = True
 # CSRF_COOKIE_HTTPONLY = True

@@ -73,3 +73,7 @@ sentry_sdk.init(
     integrations=[DjangoIntegration()],
     send_default_pii=True
 )
+
+# Email
+EMAIL_HOST_USER = env('DJANGO_EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = env('DJANGO_EMAIL_HOST_PASSWORD')

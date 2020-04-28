@@ -4,6 +4,7 @@ from .base import *  # NOQA
 from .base import env
 
 # Base
+environ.Env.read_env(os.path.join(BASE_DIR, '.env')) # This reads `.env` file variables
 DEBUG = env.bool('DJANGO_DEBUG', True)
 
 # Security
@@ -41,3 +42,7 @@ INSTALLED_APPS += [
 CSRF_COOKIE_SECURE = False
 SESSION_COOKIE_SECURE = False
 CSRF_COOKIE_HTTPONLY = False
+
+# Email
+EMAIL_HOST_USER = env('DJANGO_EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = env('DJANGO_EMAIL_HOST_PASSWORD')
