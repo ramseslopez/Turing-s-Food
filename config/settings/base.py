@@ -127,9 +127,6 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'parrypostalservice@gmail.com'
-EMAIL_HOST_PASSWORD ='unamIS2020-1'
-
 
 # Security
 SESSION_COOKIE_HTTPONLY = True

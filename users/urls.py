@@ -11,5 +11,14 @@ urlpatterns = [
     path('signup/', views.SignupView.as_view(), name='signup'),
     path('logout/', LogoutView.as_view(), name='logout'),
     path('profile/', views.ProfileView.as_view(), name='profile'),
-    path('confirmation_send/', views.EmailConfirmation.as_view(), name='confirmation_send'),
+    path(
+        route='confirmation-sent/',
+        view=views.ConfirmationSent.as_view(),
+        name='confirmation_sent'
+    ),
+    path(
+        route='email-confirmation/<str:token>',
+        view=views.EmailConfirmation.as_view(),
+        name='email_confirmation'
+    ),
 ]
