@@ -19,5 +19,5 @@ class Address(models.Model):
 class Profile(models.Model):
     """ Profile model """
 
-    user_id = models.ForeignKey(User, on_delete=models.CASCADE)
-    address_id = models.ForeignKey(Address, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    address = models.ForeignKey(Address, on_delete=models.CASCADE)

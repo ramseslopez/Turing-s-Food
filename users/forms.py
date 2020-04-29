@@ -12,7 +12,7 @@ class SignupForm(forms.Form):
     first_name = forms.CharField(max_length=255, required=True)
     last_name = forms.CharField(max_length=255, required=True)
     address = forms.CharField(max_length=255, required=True)
-    phone_number = forms.IntegerField(required=True)
+    phone_number = forms.CharField(max_length=255, required=True)
     password = forms.CharField(
         min_length=5,
         max_length=128,

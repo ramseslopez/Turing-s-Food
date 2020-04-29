@@ -5,7 +5,6 @@ from django.contrib.auth import views as auth_views, login, get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.views.generic import FormView, TemplateView
-from django.shortcuts import render
 from django.shortcuts import redirect
 
 from .forms import SignupForm
@@ -48,24 +47,17 @@ class MenuView(TemplateView):
 
     template_name = 'restaurant/menu.html'
 
-    def get(self, request):
-        return render(request, self.template_name)
 
 class IndexView(TemplateView):
     """ Index View """
 
     template_name = 'index.html'
 
-    def get(self, request):
-        return render(request, self.template_name)
 
 class OrdersView(TemplateView):
     """ Orders View """
 
     template_name = 'orders/orders.html'
-
-    def get(self, request):
-        return render(request, self.template_name)
 
 
 class ConfirmationSent(TemplateView):

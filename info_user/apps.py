@@ -1,5 +1,5 @@
 from django.apps import AppConfig
 
 
-class Core01Config(AppConfig):
-    name = 'core01'
+class Info_UserConfig(AppConfig):
+    name = 'info_user'
