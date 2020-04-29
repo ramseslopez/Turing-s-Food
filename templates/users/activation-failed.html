@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block meta %}
+  <link rel="stylesheet" href="{% static 'css/signup.css' %}">
+{% endblock meta %}  
+
+{% block title %}
+<title>¡Algo ha salido mal!</title>
+{% endblock title %}
+
+{% block content %}
+<div class="container">
+  <div class="row justify-content-center align-items-center">
+    <div class="col-12 col-md-4">
+      <img
+	      src="{% static 'img/sleep.png' %}"
+	      alt="Turing's Food Logo"
+	      width="230"
+	      height="230"
+      />
+    </div>
+    <div class="col-12 col-md-8">
+      <h2 class="title mb-3">
+        No hemos podido activar tu cuenta.
+        Probablemente has accedido a un enlace que no debiste, o ha expirado tu activación
+      </h2>
+      <a role="button" class="btn btn-warning" href="{% url 'index' %}">Entendido</a>
+    </div>
+  </div>
+</div>
+{% endblock content %}

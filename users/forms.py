@@ -58,4 +58,4 @@ class SignupForm(forms.Form):
         phone_number = data.get('phone_number')
         data.pop('password_confirmation')
 
-        return User.objects.create_user(**data)
+        return User.objects.create_user(**data, is_active=False)

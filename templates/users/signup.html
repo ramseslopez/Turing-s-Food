@@ -6,19 +6,23 @@
 {% endblock meta %}
 
 {% block title %}
-<title>TF | Sign Up</title>
+<title>TF | Registro</title>
 {% endblock title %}
 
 {% block content %}
 <form class="form-signup" method="POST">
   {% csrf_token %}
-  <img
-    class="mb-4"
+	  <img class="mb-4"
+  {% if form.errors %} 
+	    src="{% static 'img/sleep.png' %}"
+  {% else %}
     src="{% static 'img/square-logo.png' %}"
-    alt="Turing's Food Logo"
-    width="72"
-    height="72"
-  />
+  {% endif %} 
+	    alt="Turing's Food Logo"
+	    width="144"
+	    height="144"
+        />
+
   <h1 class="h3 mb-3 font-weight-normal">Regístrate</h1>
 
   {% for error in form.non_field_errors %}
