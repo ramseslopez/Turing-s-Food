@@ -1,18 +1,8 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block meta %}
-<style>
-  /* Always set the map height explicitly to define the size of the div
-   * element that contains the map. */
-  #map {
-    height: 80vh;
-  }
-  
-  html, body {
-    height: 100%;
-  }
-
-</style>
+<link rel="stylesheet" href="{% static 'css/addLocation.css' %}">
 {% endblock meta %}
 
 {% block title %}
@@ -21,109 +11,70 @@
 
 {% block content %}
 {% include '_navbar.html' %}
-<section class="container mt-5">
+<section class="container my-5">
+  {% for error in form.alias.errors %}
+  <div class="alert alert-danger mb-5" alert-dismissible fade show role="alert">
+    {{ error }}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  {% endfor %}
+    
   <div class="row">
-    <div class="col-6">
+    <div class="col-12 col-lg-6 mb-5 mb-lg-auto">
+      <h1 class="mb-4">Agrega una nueva dirección</h1>
       <div class="form-group">
-        <label for="exampleInputEmail1">Dirección</label>
-        <input onFocus="geolocate()" type="text" class="form-control" id="autocomplete" placeholder="Enter your address">
+        <label for="autocomplete">Dirección *</label>
+        <input
+          onFocus="geolocate()"
+          type="text"
+          class="form-control {% if form.name.errors %}is-invalid{% endif %}"
+          id="autocomplete"
+          placeholder="Ingresa tu dirección"
+          required
+        />
+        {% for error in form.name.errors %}
+        <small class="form-text text-danger" id="error-message">{{ error }}</small>
+        {% endfor %}
       </div>
-      <p>Latitud: <span id="latitude"></span></p>
-      <p>Longitud: <span id="longitude"></span></p>
-      <p>Dirección: <span id="address"></span></p>
+      <form method="post">
+        {% csrf_token %}
+        <input type="hidden" name="latitude" id="latitude">
+        <input type="hidden" name="longitude" id="longitude">
+        <input type="hidden" name="name" id="address">
+        <div class="form-group">
+          <label for="indoor_number">Número Interior</label>
+          <input
+            type="text"
+            class="form-control"
+            id="indoor_number"
+            placeholder="Si no tienes, déjalo en blanco"
+            name="indoor_number"
+          />
+        </div>
+        <div class="form-group">
+          <label for="alias">Alias *</label>
+          <input
+            type="text"
+            class="form-control"
+            id="alias"
+            name="alias"
+            placeholder="Casa, oficina, escuela..."
+            required
+          />
+        </div>
+        <small class="form-text text-muted mb-3">(*) Campos requeridos</small>
+        <button class="btn btn-primary btn-block" type="submit">Enviar</button>
+      </form>
     </div>
-    <div class="col-6">
+    <div class="col-12 col-lg-6">
       <div id="map"></div>
     </div>
   </div>
 </section>
 
-
-<script>
-let autocomplete, map, marker, geocoder, infowindow;
-
-function startMaps() {
-  autocomplete = new google.maps.places.Autocomplete(
-    document.getElementById('autocomplete'), {types: ['geocode']}
-  );
-  autocomplete.setFields(['formatted_address', 'geometry']);
-  autocomplete.addListener('place_changed', fillInAddress);
-
-  map = new google.maps.Map(document.getElementById('map'), {
-    center: {lat: 19.432608, lng: -99.133209},
-    zoom: 10,
-    streetViewControl: false,
-  });
-
-  geocoder = new google.maps.Geocoder();
-  infowindow = new google.maps.InfoWindow({
-    size: new google.maps.Size(150, 50)
-  });
-
-  map.addListener('click', function(e) {
-    placeMarker(e.latLng);
-  });
-}
-
-function geocodePosition(pos) {
-  geocoder.geocode({
-    latLng: pos
-  }, function(responses) {
-    if (responses && responses.length > 0) {
-      marker.formatted_address = responses[0].formatted_address;
-    } else {
-      marker.formatted_address = 'Cannot determine address at this location.';
-    }
-    infowindow.setContent(marker.formatted_address + "<br>coordinates: " + marker.getPosition().toUrlValue(6));
-    infowindow.open(map, marker);
-    document.querySelector('#address').textContent = marker.formatted_address
-  });
-}
-
-function placeMarker(position) {
-  infowindow.close();
-  if (!marker) {
-    marker = new google.maps.Marker({
-      position: position,
-      map: map
-    });
-    map.panTo(position);
-    map.setZoom(17);
-  } else {
-    marker.setPosition(position)
-  }
-  geocodePosition(position)
-}
-
-function fillInAddress() {
-  const place = autocomplete.getPlace();
-  const address = place.formatted_address
-  const latitude = place.geometry.location.lat()
-  const longitude = place.geometry.location.lng()
-  document.querySelector('#latitude').textContent = latitude
-  document.querySelector('#longitude').textContent = longitude
-  document.querySelector('#address').textContent = address
-  placeMarker({lat: latitude, lng: longitude})
-}
-
-function geolocate() {
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(function(position) {
-      const geolocation = {
-        lat: position.coords.latitude,
-        lng: position.coords.longitude
-      };
-      const circle = new google.maps.Circle({
-        center: geolocation,
-        radius: position.coords.accuracy
-      });
-      autocomplete.setBounds(circle.getBounds());
-    });
-  }
-}
-
-</script>
-<script src="https://maps.googleapis.com/maps/api/js?key={{ GOOGLE_CLOUD_API_KEY }}&libraries=places&callback=startMaps"
-    async defer></script>
+<script src="{% static 'js/addLocation.js' %}"></script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key={{ GOOGLE_CLOUD_API_KEY }}&libraries=places&callback=startLocationServices"></script>
 {% endblock content %}
   
