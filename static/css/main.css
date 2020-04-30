@@ -12,3 +12,12 @@ body {
   background-color: #5000b3;
   color: #fff;
 }
+
+.bg-purple {
+  background-color: #7200ff !important;
+}
+
+.btn-light-purple {
+  background-color: #dfc5ff !important;
+  color: #000 !important;
+}
