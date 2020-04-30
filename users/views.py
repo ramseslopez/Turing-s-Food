@@ -42,6 +42,24 @@ class ProfileView(LoginRequiredMixin, TemplateView):
     template_name = 'users/profile.html'
 
 
+class MenuView(TemplateView):
+    """ Menu View """
+
+    template_name = 'restaurant/menu.html'
+
+
+class IndexView(TemplateView):
+    """ Index View """
+
+    template_name = 'index.html'
+
+
+class OrdersView(TemplateView):
+    """ Orders View """
+
+    template_name = 'orders/orders.html'
+
+
 class ConfirmationSent(TemplateView):
     """Tells user that an email confirmation has been sent"""
     template_name = 'users/confirmation-sent.html'

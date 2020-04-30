@@ -1,0 +1,48 @@
+.order-header {
+    font-weight: bold;
+    font-size: 1.25em;
+    color: #333;
+}
+
+.order-column {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid black;
+    margin-right: 1.5em;
+    padding-bottom: 10px;
+    margin-top: 10px;
+}
+
+.order-row {
+    display: flex;
+}
+
+.order-id {
+    width: 45%;
+}
+
+.order-price {
+    width: 20%;
+    font-size: 1.2em;
+    color: #333;
+}
+
+.order-status {
+    width: 35%;
+}
+
+.order-item-title {
+    color: #333;
+    margin-left: .5em;
+    font-size: 1.2em;
+}
+
+.content-section {
+    margin: 1em;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 1.5em;
+}

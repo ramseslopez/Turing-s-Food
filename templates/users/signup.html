@@ -80,6 +80,18 @@
     {% endif %}
     required
   />
+  <label for="inputPhoneNumber" class="sr-only">Teléfono:</label>
+  <input
+    type="tel"
+    id="inputPhoneNumber"
+    class="form-control"
+    placeholder="Teléfono"
+    name="phone_number"
+    {% if form.errors %}
+    value="{{form.phone_number.value}}"
+    {% endif %}
+    required
+  />
   <label for="inputPassword" class="sr-only">Contraseña:</label>
   <input
     type="password"

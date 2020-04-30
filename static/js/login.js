@@ -1,4 +1,4 @@
-const $emailInput = document.querySelector('#inputEmail')
+	const $emailInput = document.querySelector('#inputEmail')
 const $passwordInput = document.querySelector('#inputPassword')
 
 function invalidClassHandler() {
