@@ -48,7 +48,6 @@ class User(AbstractBaseUser, PermissionsMixin):
     )
     last_login = models.DateTimeField(auto_now_add=True, null=True)
     joined_at = models.DateTimeField(auto_now_add=True, null=True)
-
     objects = UserManager()
 
     USERNAME_FIELD = 'email'
