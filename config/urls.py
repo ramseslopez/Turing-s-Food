@@ -9,4 +9,3 @@ urlpatterns = [
     path('', view=RedirectView.as_view(url=reverse_lazy('users:login')), name='index'),
     path('users/', include(('users.urls', 'users'), namespace='users')),
 ]
- 
