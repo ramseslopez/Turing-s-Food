@@ -27,9 +27,6 @@ THIRD_PARTY_APPS = [
 
 LOCAL_APPS = [
     'core',
-    'info_user',
-    'restaurant',
-    'orders',
     'users',
 ]
 
@@ -116,6 +113,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
+
 
 # Authentication
 

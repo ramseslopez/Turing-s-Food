@@ -11,8 +11,6 @@ class SignupForm(forms.Form):
     email = forms.EmailField(max_length=255, required=True)
     first_name = forms.CharField(max_length=255, required=True)
     last_name = forms.CharField(max_length=255, required=True)
-    address = forms.CharField(max_length=255, required=True)
-    phone_number = forms.CharField(max_length=255, required=True)
     password = forms.CharField(
         min_length=5,
         max_length=128,
@@ -55,7 +53,6 @@ class SignupForm(forms.Form):
         email = data.get('email')
         first_name = data.get('first_name')
         last_name = data.get('last_name')
-        phone_number = data.get('phone_number')
         data.pop('password_confirmation')
 
         return User.objects.create_user(**data, is_active=False)
