@@ -6,10 +6,20 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.views.generic import FormView, TemplateView
 from django.shortcuts import redirect
+from django.views.defaults import page_not_found
 
 from .forms import SignupForm
 from .utils import send_email_confirmation, check_token
 
+def error_404(request,exception):
+    response = render_to_response('404.html',context_instance=RequestContext(request))
+    response.status_code = 404
+    return response
+
+def error_500(request):
+    response = render_to_response('500.html',context_instance=RequestContext(request))
+    response.status_code = 500
+    return response
 
 class LoginView(auth_views.LoginView):
     """Authenticates users"""
