@@ -1,6 +1,7 @@
 """Addresses app views"""
 
 from django.conf import settings
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.views.generic import FormView
 
@@ -8,9 +9,9 @@ from .forms import AddressForm
 from .models import UserAddress
 
 
-class AddressCreateView(FormView):
-    """Adds a new address with Google Maps"""
-    template_name = 'addresses/add.html'
+class UserAddressCreateView(LoginRequiredMixin, FormView):
+    """Adds a new user address with Google Maps APIs"""
+    template_name = 'addresses/add-user-address.html'
     form_class = AddressForm
     success_url = reverse_lazy('index')
 
