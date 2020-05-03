@@ -1,7 +1,0 @@
-0 "street_number" (numero)
-1 "route" (calle)
-2 "sublocality" (colonia)
-3 "locality" (ciudad)
-4 "administrative_area_level_1" (estado)
-5 "country" (ciudad)
-6 "postal_code" (zip code)

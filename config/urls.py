@@ -10,3 +10,6 @@ urlpatterns = [
     path('users/', include(('users.urls', 'users'), namespace='users')),
     path('addresses/', include(('addresses.urls', 'addresses'), namespace='addresses')),
 ]
+
+handler404 = 'core.views.handler404'
+handler505 = 'core.views.505'
