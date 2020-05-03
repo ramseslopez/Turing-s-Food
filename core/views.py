@@ -3,7 +3,7 @@
 from django.shortcuts import render
 
 
-def handler404(request):
+def handler404(request, exception):
     """Renders a custom 500 page"""
     render(request, '404.html')
 
