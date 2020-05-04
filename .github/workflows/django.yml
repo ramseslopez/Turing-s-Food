@@ -28,6 +28,7 @@ jobs:
       run: |
         flake8
     - name: Testing
+      env:
+        DJANGO_SETTINGS_MODULE: config.settings.testing 
       run: |
-        python manage.py migrate
         python manage.py test
