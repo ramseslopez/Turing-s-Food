@@ -1,6 +1,5 @@
 """Utilitary functions for users"""
 
-import base64
 import os
 
 from django.conf import settings

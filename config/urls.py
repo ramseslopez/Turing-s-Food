@@ -7,9 +7,12 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include(('restaurants.urls', 'restaurants'), namespace='restaurants')),
+    path('', include(('menu.urls', 'menu'), namespace='menu')),
     path('users/', include(('users.urls', 'users'), namespace='users')),
-    path('addresses/', include(('addresses.urls', 'addresses'), namespace='addresses')),
+    path(
+        route='addresses/',
+        view=include(('addresses.urls', 'addresses'), namespace='addresses')
+    ),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 handler404 = 'core.views.handler404'

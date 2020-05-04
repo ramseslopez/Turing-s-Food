@@ -50,9 +50,6 @@ class SignupForm(forms.Form):
     def save(self):
         """Create user and profile."""
         data = self.cleaned_data
-        email = data.get('email')
-        first_name = data.get('first_name')
-        last_name = data.get('last_name')
         data.pop('password_confirmation')
 
         return User.objects.create_user(**data, is_active=False)

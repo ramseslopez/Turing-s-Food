@@ -55,6 +55,8 @@ TEMPLATES[0]['OPTIONS']['loaders'] = [
     ),
 ]
 
+del TEMPLATES[0]['APP_DIRS']
+
 # Gunicorn
 INSTALLED_APPS += [
     'gunicorn'
