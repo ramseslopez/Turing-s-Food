@@ -11,5 +11,8 @@ sentry-sdk>=0.14.3,<0.15.0
 # HTTP Server
 gunicorn==19.9.
 
-# Google Storage
+# Django Storages
 django-storages[dropbox]>=1.9.1,<1.10.0
+
+# Static files
+whitenoise>=4.1.2,<4.2.0

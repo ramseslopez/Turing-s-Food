@@ -1,0 +1,2 @@
+# Code quality
+flake8>=3.7.9,<3.8.0

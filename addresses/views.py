@@ -13,7 +13,7 @@ class UserAddressCreateView(LoginRequiredMixin, FormView):
     """Adds a new user address with Google Maps APIs"""
     template_name = 'addresses/add.html'
     form_class = AddressForm
-    success_url = reverse_lazy('restaurants:index')
+    success_url = reverse_lazy('menu:items')
 
     def get_context_data(self, **kwargs):
         """Adds Google Cloud API Key to context"""
@@ -21,7 +21,6 @@ class UserAddressCreateView(LoginRequiredMixin, FormView):
         if 'GOOGLE_CLOUD_API_KEY' not in context:
             context['GOOGLE_CLOUD_API_KEY'] = settings.GOOGLE_CLOUD_API_KEY
         return context
-
 
     def form_valid(self, form):
         """Checks if user has not address with form alias, and saves model"""
@@ -37,8 +36,6 @@ class UserAddressCreateView(LoginRequiredMixin, FormView):
                 error=f'Ya cuentas con una dirección con el alias "{alias}"'
             )
             return super().form_invalid(form)
-            
+
         form.save(user)
         return super().form_valid(form)
-
-
