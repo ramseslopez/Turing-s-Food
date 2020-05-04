@@ -9,8 +9,9 @@ from addresses.models import Address
 class Restaurant(models.Model):
     """ Restaurant model """
     name = models.CharField(max_length=255)
-    logo = models.ImageField(upload_to='logos')
+    slug = models.SlugField(max_length=30, unique=True)
     description = models.CharField(max_length=255)
+    logo = models.ImageField(upload_to='logos')
     admin = models.ForeignKey(
         verbose_name='administrador',
         to=get_user_model(),

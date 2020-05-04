@@ -11,9 +11,9 @@ from .models import UserAddress
 
 class UserAddressCreateView(LoginRequiredMixin, FormView):
     """Adds a new user address with Google Maps APIs"""
-    template_name = 'addresses/add-user-address.html'
+    template_name = 'addresses/add.html'
     form_class = AddressForm
-    success_url = reverse_lazy('index')
+    success_url = reverse_lazy('restaurants:index')
 
     def get_context_data(self, **kwargs):
         """Adds Google Cloud API Key to context"""

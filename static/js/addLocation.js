@@ -89,7 +89,6 @@ function geolocate() {
   }
 }
 
-
 $autocomplete.addEventListener('change', () => {
   if (!$autocomplete.value) {
     $address.value = ""
