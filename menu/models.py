@@ -1,9 +1,6 @@
 """Restaurants app models"""
 
-from django.contrib.auth import get_user_model
 from django.db import models
-
-from addresses.models import Address
 
 
 class Item(models.Model):
