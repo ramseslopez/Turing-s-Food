@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %}
+<title>{{ object.name }}</title>
+{% endblock title %}
+
+{% block content %}
+{% include '_navbar.html' %}
+<header class="container mt-3">
+  <div class="jumbotron">
+    <div class="row">
+      <div class="col d-flex justify-content-center align-items-center col-12 col-lg-6 mb-3 mb-lg-auto">
+        <img src="{{ object.logo.url }}" alt="Logo {{ object.name }}" class="img-thumbnail">
+      </div>
+      <div class="col d-flex text-center justify-content-center align-items-center flex-column  col-12 col-lg-6">
+        <h1 class="display-5">{{ object.name }}</h1>
+        <p class="lead">{{ object.description }}</p>
+      </div>
+    </div>
+    <hr class="my-4">
+    <p class="text-center">{{ object.address.name }}</p>
+    <a class="btn btn-primary btn-block btn-lg-lg btn-turing" href="#" role="button">Editar</a>
+  </div>
+</header>
+{% endblock content %}
+  

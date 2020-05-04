@@ -1,6 +1,6 @@
 {% load static %}
 <nav class="navbar navbar-expand-lg navbar-dark bg-purple">
-  <a class="navbar-brand" href="{% url 'index' %}">
+  <a class="navbar-brand" href="{% url 'restaurants:index' %}">
     <img src="{% static 'img/white-logo.png' %}" width="30" height="30" alt="">
   </a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -10,13 +10,13 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
-        <a class="nav-link" href="#">Explorar</a>
+        <a class="nav-link" href="{% url 'restaurants:index' %}">Pedir</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="#">Perfil</a>
       </li>
       <li class="nav-item d-lg-none">
-        <a class="nav-link" href="#">Cerrar sesión</a>
+        <a class="nav-link" href="{% url 'users:logout' %}">Cerrar sesión</a>
       </li>
     </ul>
     <a

@@ -2,6 +2,14 @@
 
 -r ./base.txt
 
+# Database
 psycopg2>=2.8.4,<2.9.0 --no-binary psycopg2
+
+# Sentry
 sentry-sdk>=0.14.3,<0.15.0
+
+# HTTP Server
 gunicorn==19.9.
+
+# Google Storage
+django-storages[dropbox]>=1.9.1,<1.10.0
