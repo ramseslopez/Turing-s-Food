@@ -36,11 +36,12 @@ def create_payment_intent(amount, customer_id, payment_method=None):
             )
         except stripe.error.CardError as e:
             err = e.error
-            # Error code will be authentication_required if authentication is needed
+            # Error code will be authentication_required
+            # if authentication is needed
             print("Code is: %s" % err.code)
             payment_intent_id = err.payment_intent['id']
             payment_intent = stripe.PaymentIntent.retrieve(payment_intent_id)
-
+            return payment_intent
 
 
 def list_payment_methods(customer_id):

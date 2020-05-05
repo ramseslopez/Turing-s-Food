@@ -66,5 +66,3 @@ class RemoveItemFromCartView(LoginRequiredMixin, View):
             ),
             'total': shopping_cart.total
         })
-
-
