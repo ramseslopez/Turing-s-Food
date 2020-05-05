@@ -122,7 +122,7 @@ STATICFILES_DIRS = [
 
 AUTH_USER_MODEL = 'core.User'
 LOGIN_URL = 'users:login'
-LOGIN_REDIRECT_URL = 'users:profile'
+LOGIN_REDIRECT_URL = 'menu:items'
 LOGOUT_REDIRECT_URL = 'users:login'
 
 # Gmail

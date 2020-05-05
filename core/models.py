@@ -34,9 +34,11 @@ class User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(max_length=255, unique=True)
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
-    is_active = models.BooleanField(default=True)
-    is_staff = models.BooleanField(default=False)
-    is_superuser = models.BooleanField(default=False)
+    is_active = models.BooleanField('está activo', default=True)
+    is_staff = models.BooleanField('es staff', default=False)
+    is_superuser = models.BooleanField('es superusuario', default=False)
+    is_delivery_man = models.BooleanField('es repartidor', default=False)
+    is_admin = models.BooleanField('es administrador', default=False)
     STATUS_CHOICES = (
         ('Comensal', 1),
         ('Repartidor', 2),

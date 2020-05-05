@@ -1,4 +1,15 @@
 {% extends 'base.html' %}
+{% load static %}
+
+
+{% block meta %}
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css"
+  integrity="sha384-R334r6kryDNB/GWs2kfB6blAOyWPCxjdHSww/mo7fel+o5TM/AOobJ0QpGRXSDh4"
+  crossorigin="anonymous"
+/>
+{% endblock meta %}
 
 {% block title %}
 <title>Turing's Food</title>
@@ -6,5 +17,43 @@
 
 {% block content %}
 {% include '_navbar.html' %}
+
+<header class="container my-5">
+  <h1 class="display-4">Menú</h1>
+  <p class="leading">Elige lo que quieras entre nuestro amplias opciones</p>
+</header>
+
+<section class="container">  
+{% for item in item_list %}
+  <article class="media d-flex justify-content-center align-items-center">
+    <img src="{{ item.image.url }}" class="mr-3" alt="{{ item.name }}" height="110">
+    <div class="media-body d-flex flex-column justify-content-center align-items-end text-right">
+      <h4 class="mt-0">
+        {{ item.name }}
+        <small class="text-muted">
+          ${{ item.price|stringformat:".2f" }}
+        </small>
+      </h4>
+      <p>{{ item.description }}</p>
+      <button class="btn btn-turing add-to-cart" data-id="{{item.id}}">
+        Añadir al Carrito
+      </button>
+    </div>
+  </article>
+  <hr />
+{% endfor %}
+</section>
 {% endblock content %}
-  
+
+{% block scripts %}
+<script>
+  const addToCartUrl = '{% url "menu:add_to_cart" %}';
+</script>
+<script
+  src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"
+  integrity="sha384-Si3HKTyQYGU+NC4aAF3ThcOSvK+ZQiyEKlYyfjiIFKMqsnCmfHjGa1VK1kYP9UdS"
+  crossorigin="anonymous">
+</script>
+<script src="{% static 'js/js.cookie.js' %}"></script>
+<script src="{% static 'js/menu.js' %}"></script>
+{% endblock scripts %}
