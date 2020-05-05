@@ -73,7 +73,9 @@
     </div>
   </div>
 </section>
+{% endblock content %}
 
+{% block scripts %}
 <script src="{% static 'js/addLocation.js' %}"></script>
 <script async defer src="https://maps.googleapis.com/maps/api/js?key={{ GOOGLE_CLOUD_API_KEY }}&libraries=places&callback=startLocationServices"></script>
-{% endblock content %}
+{% endblock scripts %}

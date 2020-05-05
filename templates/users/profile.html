@@ -1,17 +1,17 @@
 {% extends 'base.html' %}
-{% load static %}
 
 {% block title %}
-<title>TF | {{request.user.first_name}}</title>
+<title>Perfil de {{request.user.first_name}}</title>
 {% endblock title %}
 
 {% block content %}
-  <div class="container mt-5">
-    <h1 class="title">
-      Bienvenido, {{ request.user.first_name }}
-    </h1>
-    <a role="button" class="btn btn-warning" href="{% url 'users:logout' %}">Cerrar sesión</a>
-  </div>
+{% include '_navbar.html' %}
+<section class="container my-5">
+  <h1 class="title">
+    Bienvenido, {{ request.user.first_name }}
+  </h1>
+  <a role="button" class="btn btn-turing" href="">Gestionar direcciones</a>
+  <a role="button" class="btn btn-dark" href="">Gestionar métodos de pago</a>
+  <a role="button" class="btn btn-danger" href="{% url 'users:logout' %}">Cerrar sesión</a>
+</section>
 {% endblock content %}
-
-  
