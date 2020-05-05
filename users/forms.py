@@ -3,6 +3,8 @@
 from django import forms
 from django.contrib.auth import get_user_model
 
+from menu.models import ShoppingCart
+
 User = get_user_model()
 
 
@@ -51,5 +53,7 @@ class SignupForm(forms.Form):
         """Create user and profile."""
         data = self.cleaned_data
         data.pop('password_confirmation')
+        user = User.objects.create_user(**data, is_active=False)
+        ShoppingCart.objects.create(user=user)
 
-        return User.objects.create_user(**data, is_active=False)
+        return user

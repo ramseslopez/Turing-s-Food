@@ -13,6 +13,10 @@ urlpatterns = [
         route='addresses/',
         view=include(('addresses.urls', 'addresses'), namespace='addresses')
     ),
+    path(
+        route='checkout/',
+        view=include(('checkout.urls', 'checkout'), namespace='checkout')
+    ),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 handler404 = 'core.views.handler404'

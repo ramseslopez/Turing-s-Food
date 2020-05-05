@@ -5,6 +5,8 @@ from django.contrib.auth.models import (
     AbstractBaseUser, BaseUserManager, PermissionsMixin
 )
 
+from checkout.utils.stripe import create_customer
+
 
 class UserManager(BaseUserManager):
     """Manages user mapped objects"""
@@ -15,6 +17,7 @@ class UserManager(BaseUserManager):
             raise ValueError('Users must have an email address')
         user = self.model(email=self.normalize_email(email), **extra_fields)
         user.set_password(password)
+        user.customer_id = create_customer().get('id')
         user.save(using=self._db)
 
         return user
@@ -24,6 +27,7 @@ class UserManager(BaseUserManager):
         user = self.create_user(email, password)
         user.is_staff = True
         user.is_superuser = True
+        user.customer_id = create_customer().id
         user.save(using=self._db)
 
         return user
@@ -39,6 +43,12 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_superuser = models.BooleanField('es superusuario', default=False)
     is_delivery_man = models.BooleanField('es repartidor', default=False)
     is_admin = models.BooleanField('es administrador', default=False)
+    customer_id = models.CharField(
+        verbose_name='id de cliente de stripe',
+        max_length=100,
+        blank=True,
+        null=True
+    )
     STATUS_CHOICES = (
         ('Comensal', 1),
         ('Repartidor', 2),
@@ -56,3 +66,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     class Meta:
         verbose_name = 'usuario'
+
+    def get_full_name(self):
+        """Concats first and last names"""
+        return f'{self.first_name} {self.last_name}'

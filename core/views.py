@@ -2,7 +2,6 @@
 
 from django.shortcuts import render
 
-
 def handler404(request, exception):
     """Renders a custom 404 page"""
     render(request, '404.html')

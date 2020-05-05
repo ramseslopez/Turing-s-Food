@@ -8,7 +8,6 @@ environ.Env.read_env(os.path.join(BASE_DIR, '.env')) # This reads `.env` file va
 DEBUG = env.bool('DJANGO_DEBUG', True)
 
 # Security
-
 SECRET_KEY = env(
     'DJANGO_SECRET_KEY',
     default='4ra7dxrd(&tmw$b5s9--akuakuisreal0v4!!f_-h7i)b_96aw'
@@ -28,17 +27,14 @@ DATABASES = {
 }
 
 # Templates
-
 TEMPLATES[0]['OPTIONS']['debug'] = DEBUG
 
 # Development apps
-
 INSTALLED_APPS += [
     'django_extensions',
 ]
 
 # Security
-
 CSRF_COOKIE_SECURE = False
 SESSION_COOKIE_SECURE = False
 CSRF_COOKIE_HTTPONLY = False
@@ -47,6 +43,9 @@ CSRF_COOKIE_HTTPONLY = False
 EMAIL_HOST_USER = env('DJANGO_EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = env('DJANGO_EMAIL_HOST_PASSWORD')
 
-
 # Google Cloud
 GOOGLE_CLOUD_API_KEY = env('GOOGLE_CLOUD_API_KEY')
+
+# Stripe
+STRIPE_API_KEY = env('STRIPE_API_KEY')
+STRIPE_PUBLISHABLE_KEY = env('STRIPE_PUBLISHABLE_KEY')
