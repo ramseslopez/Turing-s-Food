@@ -78,11 +78,3 @@ class ShoppingCart(models.Model):
     def __str__(self):
         """Returns string representation of a shopping cart"""
         return f'Carrito de {self.user.email}'
-
-# class Order(models.Model):
-#     """Order model"""
-#     shopping_cart = models.ForeignKey(ShoppingCart, on_delete=models.CASCADE)
-#     address = models.ForeignKey(Address, on_delete=models.CASCADE)
-#     delivery_man = models.ForeignKey(User, on_delete=models.CASCADE)
-#     ordered_at = models.DateTimeField(auto_now_add=True, null=True)
-#     delivered = models.BooleanField(default=False)

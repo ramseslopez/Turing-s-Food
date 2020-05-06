@@ -50,10 +50,13 @@
   </article>
 {% endfor %}
 {% if itemset_list %}
-  <article class="text-center">
-    <h3 id="total">
+  <article class="text-center text-lg-right" id="total">
+    <h3>
       Total: ${{ request.user.shoppingcart.total|stringformat:".2f" }}</span>
     </h3>
+    <a role="button" href="{% url 'checkout:index' %}" class="btn btn-lg btn-turing mt-2 mb-5">
+      Completar Orden
+    </a>
   </article>
 {% endif %}
   

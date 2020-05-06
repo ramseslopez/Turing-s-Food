@@ -6,7 +6,7 @@
 {% endblock meta %}
 
 {% block title %}
-<title>Iniciar Sesión</title>
+<title>Iniciar Sesión | Administrador</title>
 {% endblock title %}
 
 {% block content %}
@@ -23,7 +23,7 @@
 	    height="144"
 	  />
 
-  <h1 class="h3 mb-3 font-weight-normal">Iniciar Sesión</h1>
+  <h1 class="h3 mb-3 font-weight-normal">Iniciar Sesión como Administrador</h1>
 
   {% for error in form.non_field_errors %}
   <div class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -65,10 +65,9 @@
     Iniciar Sesión
   </button>
   <div class="container mt-4">
-    <p class="my-1">¿No tienes cuenta? <a style="color: #7200ff" href="{% url 'users:signup' %}">Regístrate</a></p>
-    <p class="my-1">Ingreso
-      <a href="{% url 'users:delivery_men_login' %}{% if request.GET.next %}?next={{ request.GET.next }}{% endif %}" style="color: #7200ff">Repartidor</a> /
-      <a href="{% url 'users:admin_login' %}{% if request.GET.next %}?next={{ request.GET.next }}{% endif %}" style="color: #7200ff">Administrador</a>
+    <p class="my-1">Ingreso como
+      <a href="{% url 'users:login' %}{% if request.GET.next %}?next={{ request.GET.next }}{% endif %}" style="color: #7200ff">Usuario</a> /
+      <a href="{% url 'users:delivery_men_login' %}{% if request.GET.next %}?next={{ request.GET.next }}{% endif %}" style="color: #7200ff">Repartidor</a>
     </p>
   </div>
   <p class="mt-5 mb-3 text-muted">&copy; 2020-2021</p>

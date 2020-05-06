@@ -37,5 +37,10 @@ class AddressCreateView(LoginRequiredMixin, FormView):
             )
             return super().form_invalid(form)
 
-        form.save(user)
+        address = form.save(user)
+        next = self.request.GET.get('next')
+        if next:
+            next += f'?address={address.pk}'
+            self.success_url = next
+
         return super().form_valid(form)

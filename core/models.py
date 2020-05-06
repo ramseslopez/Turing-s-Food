@@ -25,6 +25,8 @@ class UserManager(BaseUserManager):
     def create_superuser(self, email, password):
         """Creates and saves a new superuser"""
         user = self.create_user(email, password)
+        user.is_delivery_man = True
+        user.is_admin = True
         user.is_staff = True
         user.is_superuser = True
         user.customer_id = create_customer().id

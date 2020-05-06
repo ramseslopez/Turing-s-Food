@@ -24,7 +24,7 @@ body {
   color: #000 !important;
 }
 
-.active {
-  background-color: #7200ff !important;
-  border-color: #7200ff !important;
+.list-group-item.active {
+  background-color: #7300ff92 !important;
+  border-color: #7300ff92 !important;
 }

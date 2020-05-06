@@ -1,9 +1,12 @@
-const $payButton = document.querySelector('#submit');
 const $cardComponent = document.querySelector('#new-card');
-const $paymentItems = document.querySelectorAll('.payment-item');
+const $payButton = document.querySelector('#submit');
 const $saveCardCheck = document.querySelector('#save-card');
+const $addressItems = document.querySelectorAll('.address-item');
+const $paymentItems = document.querySelectorAll('.payment-item');
 
+let loading = false
 let currentItem = null;
+let currentAddress = null;
 let newCard = false;
 $payButton.disabled = true;
 
@@ -11,7 +14,7 @@ fetch(stripeKeyUrl)
   .then(result => result.json())
   .then(setupElements)
   .then(({ stripe, card, clientSecret }) => {
-    $payButton.disabled = false;
+    checkPayButton()
     $payButton.addEventListener('click', () => {
       if (currentItem) {
         if (newCard) {
@@ -55,7 +58,7 @@ function setupElements(data) {
 
 
 function payWithNewCard(stripe, card, clientSecret) {
-  // changeLoadingState(true);
+  changeLoadingState(true);
   const paymentSettings = {
     payment_method: {
       card: card,
@@ -80,14 +83,14 @@ function payWithNewCard(stripe, card, clientSecret) {
         })
       } else {
         if (result.paymentIntent.status === 'succeeded') {
-          redirectToSuccessUrl()
+          submitForm(result.paymentIntent.id)
         }
       }
     });
 };
 
 function pay(stripe) {
-  // changeLoadingState(true);
+  changeLoadingState(true);
   const paymentId = currentItem.dataset.paymentId;
   const csrftoken = Cookies.get('csrftoken'); 
   const data = new FormData();
@@ -101,7 +104,9 @@ function pay(stripe) {
     })
     .then(response => response.json())
     .then(data => {
-      if (data.status !== 'succeeded') {
+      if (data.status === 'succeeded') {
+        submitForm(data.id)
+      } else {
         stripe.confirmCardPayment(data.client_secret, {
           payment_method: paymentId
         }).then(function(result) {
@@ -114,30 +119,31 @@ function pay(stripe) {
             })
           } else {
             if (result.paymentIntent.status === 'succeeded') {
-              redirectToSuccessUrl()
+              submitForm(result.paymentIntent.id)
             }
           }
         });
-      } else {
-        redirectToSuccessUrl()
       }
     })
 }
 
-function redirectToSuccessUrl() {
-  window.location.href = successUrl + '?cola=hola';
+function submitForm(intentId) {
+  document.querySelector('#address_id').value = currentAddress.dataset.addressId;
+  document.querySelector('#intent_id').value = intentId;
+  const $form = document.querySelector('#form');
+  $form.submit()
 }
 
 
 function changeLoadingState(isLoading) {
   if (isLoading) {
-    document.querySelector("button").disabled = true;
-    document.querySelector("#spinner").classList.remove("hidden");
-    document.querySelector("#button-text").classList.add("hidden");
+    $payButton.disabled = true;
+    document.querySelector("#spinner").classList.remove("d-none");
+    document.querySelector("#button-text").classList.add("d-none");
   } else {
     document.querySelector("button").disabled = false;
-    document.querySelector("#spinner").classList.add("hidden");
-    document.querySelector("#button-text").classList.remove("hidden");
+    document.querySelector("#spinner").classList.add("d-none");
+    document.querySelector("#button-text").classList.remove("d-none");
   }
 };
 
@@ -145,30 +151,65 @@ function changeLoadingState(isLoading) {
 function displayErrors(event) {
   const $displayError = document.getElementById('card-errors');
   if (event.error) {
-    $displayError .textContent = event.error.message;
+    $displayError.textContent = event.error.message;
   } else {
-    $displayError .textContent = '';
+    $displayError.textContent = '';
+  }
+}
+
+function checkPayButton() {
+  if (currentItem && currentAddress) {
+    $payButton.disabled = false;
+  } else {
+    $payButton.disabled = true;
   }
 }
 
 for (const paymentItem of $paymentItems) {
   paymentItem.addEventListener('click', () => {
-    if (currentItem !== paymentItem) {
-      if (currentItem) currentItem.classList.remove('active');
-      paymentItem.classList.add('active');
-      currentItem = paymentItem;
-      if (paymentItem.classList.contains('new-card-item')) {
-        newCard = true
-        $cardComponent.classList.remove('d-none');
+    if (!loading) {
+      if (currentItem !== paymentItem) {
+        if (currentItem) currentItem.classList.remove('active');
+        paymentItem.classList.add('active');
+        currentItem = paymentItem;
+        if (paymentItem.classList.contains('new-card-item')) {
+          newCard = true
+          $cardComponent.classList.remove('d-none');
+        } else {
+          newCard = false
+          $cardComponent.classList.add('d-none');
+        }
       } else {
-        newCard = false
+        currentItem = null
         $cardComponent.classList.add('d-none');
+        paymentItem.classList.remove('active');
       }
-    } else {
-      currentItem = null
-      $cardComponent.classList.add('d-none');
-      paymentItem.classList.remove('active');
+      checkPayButton()
     }
   })
+}
+
+const urlParams = new URLSearchParams(window.location.search);
+const urlAddressId = urlParams.get('address');
+
+for (const addressItem of $addressItems) {
+  const addressId = addressItem.dataset.addressId
+  if (urlAddressId === addressId) {
+    addressItem.classList.add('active');
+    currentAddress = addressItem
+  }
+  addressItem.addEventListener('click', () => {
+    if (!loading) {
+      if (addressItem !== currentAddress) {
+        if (currentAddress) currentAddress.classList.remove('active');
+        addressItem.classList.add('active')
+        currentAddress = addressItem;
+      } else {
+        currentAddress = null
+        addressItem.classList.remove('active');
+      }
+      checkPayButton()
+    }
+  });
 }
 

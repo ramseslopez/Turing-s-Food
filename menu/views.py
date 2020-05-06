@@ -11,7 +11,7 @@ from .utils import add_item
 class ItemListView(LoginRequiredMixin, ListView):
     """Shows all items"""
     model = Item
-    template_name = 'menu/list.html'
+    template_name = 'menu/items.html'
 
 
 class CartView(LoginRequiredMixin, ListView):

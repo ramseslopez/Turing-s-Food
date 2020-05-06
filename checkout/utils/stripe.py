@@ -13,7 +13,7 @@ def create_customer():
     return stripe.Customer.create()
 
 
-def create_payment_intent(amount, customer_id, payment_method=None):
+def create_payment_intent(amount, customer_id, payment_method=None, receipt_email=None):
     """
     Creates a payment intent. If payment method is provided, it uses it
     """
@@ -23,6 +23,7 @@ def create_payment_intent(amount, customer_id, payment_method=None):
             amount=amount,
             currency='mxn',
             customer=customer_id,
+            receipt_email=receipt_email,
         )
     else:
         try:
@@ -33,6 +34,7 @@ def create_payment_intent(amount, customer_id, payment_method=None):
                 payment_method=payment_method,
                 off_session=True,
                 confirm=True,
+                receipt_email=receipt_email
             )
         except stripe.error.CardError as e:
             err = e.error

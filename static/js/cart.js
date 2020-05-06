@@ -36,7 +36,7 @@ for (const button of $removeButtons) {
           $total.remove();
           $infoText.textContent = 'Aún no hay artículos, puedes volver al menú a agregar productos al carrito'
         } else {
-          $total.textContent = `Total: $${data.total}`
+          $total.querySelector('h3').textContent = `Total: $${data.total}`
         }
       }   
       toastr.options = {

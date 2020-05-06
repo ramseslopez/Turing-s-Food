@@ -8,7 +8,7 @@ from . import views
 urlpatterns = [
     path(
         route='',
-        view=views.CheckoutView.as_view(),
+        view=views.CheckoutFormView.as_view(),
         name='index'
     ),
     path(
@@ -22,7 +22,7 @@ urlpatterns = [
         name='pay'
     ),
     path(
-        route='success',
+        route='success/<int:pk>',
         view=views.CheckoutSuccessView.as_view(),
         name='success'
     ),
