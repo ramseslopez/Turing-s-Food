@@ -46,4 +46,14 @@ urlpatterns = [
         view=views.RemoveDeliveryManView.as_view(),
         name='remove_delivery_man'
     ),
+    path(
+        route='delivery-men/activate-pickup',
+        view=views.ActivatePickupView.as_view(),
+        name='activate_pickup'
+    ),
+    path(
+        route='delivery-men/stop-pickup',
+        view=views.StopPickupView.as_view(),
+        name='stop_pickup'
+    ),
 ]

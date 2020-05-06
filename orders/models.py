@@ -25,16 +25,17 @@ class Order(models.Model):
     delivery_man = models.ForeignKey(
         verbose_name='repartidor',
         to=get_user_model(),
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
         blank=True,
         null=True,
         related_name='delivery_man_set'
     )
     STATUS_CHOICES = (
         (1, 'Recibido'),
-        (2, 'En Preparación'),
-        (3, 'En Camino'),
-        (4, 'Entregado')
+        (2, 'En preparación'),
+        (3, 'Listo para ser recogido'),
+        (4, 'En camino'),
+        (5, 'Entregado')
     )
     status = models.PositiveSmallIntegerField(
         verbose_name='status',

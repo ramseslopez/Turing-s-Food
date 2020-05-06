@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+<title>Atender</title>
+{% endblock title %}
+
+{% block content %}
+{% include '_navbar.html' %}
+<main class="row container-fluid">
+  <section class="col-12 col-lg-6 container my-5">
+    <h2 class="text-center mb-4">Órdenes recibidas</h1>
+    {% for order in order_list %}
+    {% if order.status == 1 %}
+    <article class="d-flex justify-content-between align-items-center">
+      <div>
+        <h4>{{ order }}</h4>
+        <pre>{{ order.description }}</pre>
+      </div>
+      <div>
+        <button class="btn btn-turing take-button" data-id="{{ order.pk }}">Tomar la order</button>
+      </div>
+    </article>
+    <hr />
+    {% endif %}
+    {% endfor %}
+    <form action="{% url 'orders:taken' %}" method="post" id="take-form">
+      {% csrf_token %}
+      <input type="hidden" name="order" id="taken-order" />
+    </form>
+  </section>
+  <section class="col-12 col-lg-6 container my-5">
+    <h2 class="text-center mb-4">Órdenes en preparación</h1>
+    {% for order in order_list %}
+    {% if order.status == 2 %}
+    <article class="d-flex justify-content-between align-items-center">
+      <div>
+        <h4>{{ order }}</h4>
+        <pre>{{ order.description }}</pre>
+      </div>
+      <div>
+        <button class="btn btn-turing pickup-button" data-id="{{ order.pk }}">Lista para recoger</button>
+      </div>
+    </article>
+    <hr /> 
+    {% endif %}
+    {% endfor %}   
+    <form action="{% url 'orders:prepared' %}" method="post" id="pickup-form">
+      {% csrf_token %}
+      <input type="hidden" name="order" id="pickup-order" />
+    </form>
+  </section>
+</main>
+{% endblock content %}
+
+{% block scripts %}
+<script src="{% static 'js/orders.js' %}"></script>
+{% endblock scripts %}

@@ -3,6 +3,10 @@ body {
   font-family: 'Nunito';
 }
 
+.text-turing {
+  color: #7200ff !important;
+}
+
 .btn-turing {
   background-color: #7200ff;
   border-color: #7200ff;

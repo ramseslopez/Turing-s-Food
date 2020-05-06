@@ -14,17 +14,17 @@
       </li>
       {% if request.user.status == 1 %}
         <li class="nav-item">
-          <a class="nav-link" href="#">Órdenes</a>
+          <a class="nav-link" href="{% url 'orders:list' %}">Órdenes</a>
         </li>
       {% endif %}
       {% if request.user.status == 2 %}
         <li class="nav-item">
-          <a class="nav-link" href="#">Repartir</a>
+          <a class="nav-link" href="{% url 'orders:pickup_service' %}">Repartir</a>
         </li>
       {% endif %}
       {% if request.user.status == 3 %}
         <li class="nav-item">
-          <a class="nav-link" href="#">Atender</a>
+          <a class="nav-link" href="{% url 'orders:attend' %}">Atender</a>
         </li>
       {% endif %}
       <li class="nav-item dropdown d-none d-lg-block">

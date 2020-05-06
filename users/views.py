@@ -193,3 +193,35 @@ class RemoveDeliveryManView(UserPassesTestMixin, LoginRequiredMixin, View):
             user.save()
             delivery_man.delete()
         return redirect('users:delivery_men')
+
+
+class ActivatePickupView(UserPassesTestMixin, LoginRequiredMixin, View):
+    """Sets delivery man as active"""
+
+    def test_func(self):
+        """Checks if user is delivery man"""
+        return self.request.user.status == 2
+
+    def get(self, request):
+        """Sets delivery man as active"""
+        delivery_man = request.user.deliveryman
+        delivery_man.is_active = True
+        delivery_man.is_available = True
+        delivery_man.save()
+        return redirect('orders:pickup_service')
+
+
+class StopPickupView(UserPassesTestMixin, LoginRequiredMixin, View):
+    """Sets delivery man as inactive"""
+
+    def test_func(self):
+        """Checks if user is delivery man"""
+        return self.request.user.status == 2
+
+    def get(self, request):
+        """Sets delivery man as inactive"""
+        delivery_man = request.user.deliveryman
+        delivery_man.is_active = False
+        delivery_man.is_available = False
+        delivery_man.save()
+        return redirect('orders:pickup_service')
