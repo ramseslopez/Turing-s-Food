@@ -2,13 +2,15 @@
 
 from django.contrib import messages
 from django.contrib.auth import views as auth_views, login, get_user_model
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.http import JsonResponse
 from django.urls import reverse_lazy
-from django.views.generic import FormView, TemplateView
+from django.views.generic import FormView, TemplateView, ListView, View
 from django.shortcuts import redirect
 
 from .forms import SignupForm
 from .utils import send_email_confirmation, check_token
+from .models import DeliveryMan
 
 
 class LoginView(auth_views.LoginView):
@@ -123,3 +125,69 @@ class ActivateAccount(TemplateView):
             return redirect('users:profile')
 
         return super().get(request, *args, **kwargs)
+
+
+class DeliveryMenListView(UserPassesTestMixin, LoginRequiredMixin, ListView):
+    """Lists all delivery men"""
+
+    def test_func(self):
+        """Checks if user is admin"""
+        return self.request.user.status == 3
+
+    model = DeliveryMan
+    template_name = 'users/delivery-men.html'
+
+
+class AddDeliveryManView(UserPassesTestMixin, LoginRequiredMixin, View):
+    """Removes a delivery man"""
+
+    def test_func(self):
+        """Checks if user is admin"""
+        return self.request.user.status == 3
+
+    def post(self, request):
+        """Removes item from menu"""
+        data = {}
+        email = request.POST.get('email')
+        user_queryset = get_user_model().objects.filter(
+            email=email
+        )
+        if not user_queryset.exists():
+            data['message'] = 'El usuario no está registrado.'
+            data['success'] = False
+        else:
+            user = user_queryset.get()
+            if user.is_delivery_man:
+                data['message'] = (
+                    'El usuario ingresado ya ha sido registrado '
+                    'como repartidor.'
+                )
+                data['success'] = False
+            else:
+                DeliveryMan.objects.create(user=user)
+                user.is_delivery_man = True
+                user.save()
+                data['message'] = 'Se ha registrado al usuario como repartidor.'
+                data['success'] = True
+        return JsonResponse(data)
+
+
+class RemoveDeliveryManView(UserPassesTestMixin, LoginRequiredMixin, View):
+    """Removes a delivery man"""
+
+    def test_func(self):
+        """Checks if user is admin"""
+        return self.request.user.status == 3
+
+    def post(self, request):
+        """Removes item from menu"""
+        if request.user.status == 3:
+            pk = int(request.POST.get('deleted_delivery_man'))
+            delivery_man = DeliveryMan.objects.get(pk=pk)
+            user = delivery_man.user
+            user.is_delivery_man = False
+            if user.status == 2:
+                user.status = 1
+            user.save()
+            delivery_man.delete()
+        return redirect('users:delivery_men')

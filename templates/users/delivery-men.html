@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block meta %}
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css"
+  integrity="sha384-R334r6kryDNB/GWs2kfB6blAOyWPCxjdHSww/mo7fel+o5TM/AOobJ0QpGRXSDh4"
+  crossorigin="anonymous"
+/>
+{% endblock meta %}
+
+{% block title %}
+<title>Repartidores</title>
+{% endblock title %}
+
+{% block content %}
+{% include '_navbar.html' %}
+  
+
+<header class="container mt-5">
+  <div class="d-flex justify-content-between">
+    <div class="d-flex flex-column justify-content-center align-items-start">
+      <h1 class="display-4">Repartidores</h1>
+      <p class="leading">Añade y elimina repartidores</p>
+    </div>
+  </div>
+</header>
+
+<section class="container mt-5">
+  <h2>Añadir repartidor</h2>
+  <p class="text-muted">
+    Añade al usuario que deseas registrar como repartidor.
+    Los usuarios deben estar previamente registrados.
+  </p>
+  <form class="form-inline" id="add-form">
+    <label class="sr-only" for="email">Correo Electrónico</label>
+    <input
+      type="email"
+      class="form-control mb-2 mr-sm-2"
+      id="email"
+      name="email"
+      placeholder="Correo Electrónico"
+      id="email"
+      required
+    />  
+    <button type="submit" class="btn btn-turing mb-2">Agregar</button>
+  </form>
+</section>
+
+<section class="container mt-5">  
+  <h2>Lista de Repartidores</h2>
+  {% for delivery_man in deliveryman_list %}
+  <article class="d-flex justify-content-between align-items-center">
+    <div class="d-flex flex-column justify-content-center align-items-center">
+      <h4 class="mt-0">
+        {{ delivery_man.user.first_name }}
+        {% if delivery_man.is_available %}
+        <span class="badge badge-success">Disponible</span>
+        {% elif delivery_man.is_active %}
+        <span class="badge badge-warning">Activo</span>
+        {% endif %}
+      </h4>
+      <p>
+        <small class="text-muted">
+          {{ delivery_man.user.email }}
+        </small>
+      </p>
+    </div>
+    <div class="d-flex flex-column justify-content-center align-items-center">
+      <button class="btn btn-outline-danger delete-button" data-id="{{delivery_man.id}}">
+        Eliminar
+      </button>
+    </div>
+  </article>
+  <hr />
+  {% empty %}
+  <p class="lead text-muted">Aún no has añadido usuarios como repartidores</p>
+  {% endfor %}
+<form action="{% url 'users:remove_delivery_man' %}" method="post" id="remove-form">
+  {% csrf_token %}
+  <input type="hidden" name="deleted_delivery_man" id="deleted-delivery-man" />
+</form>
+</section>
+{% endblock content %}
+
+{% block scripts %}
+<script src="{% static 'js/js.cookie.js' %}"></script>
+<script>
+  const addDeliveryManUrl = '{% url "users:add_delivery_man" %}';
+</script>
+<script
+  src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"
+  integrity="sha384-Si3HKTyQYGU+NC4aAF3ThcOSvK+ZQiyEKlYyfjiIFKMqsnCmfHjGa1VK1kYP9UdS"
+  crossorigin="anonymous"
+>
+</script>
+<script src="{% static 'js/deliveryMen.js' %}"></script>
+{% endblock scripts %}

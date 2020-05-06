@@ -1,8 +1,10 @@
 """Menu app views"""
 
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.http import JsonResponse
-from django.views.generic import ListView, View
+from django.shortcuts import redirect
+from django.urls import reverse_lazy
+from django.views.generic import ListView, View, CreateView
 
 from .models import Item, ItemSet, ShoppingCart
 from .utils import add_item
@@ -12,6 +14,12 @@ class ItemListView(LoginRequiredMixin, ListView):
     """Shows all items"""
     model = Item
     template_name = 'menu/items.html'
+
+    def get_queryset(self):
+        """Order items"""
+        queryset = super().get_queryset()
+        queryset = queryset.order_by('name')
+        return queryset
 
 
 class CartView(LoginRequiredMixin, ListView):
@@ -46,6 +54,19 @@ class AddItemToCartView(LoginRequiredMixin, View):
         })
 
 
+class AddItemToMenuView(UserPassesTestMixin, LoginRequiredMixin, CreateView):
+    """Adds item to menu"""
+    model = Item
+    template_name = 'menu/add.html'
+    fields = '__all__'
+    success_url = reverse_lazy('menu:items')
+
+    def test_func(self):
+        """Checks if user is admin"""
+        return self.request.user.status == 3
+
+
+
 class RemoveItemFromCartView(LoginRequiredMixin, View):
     """Removes a item set to user's cart"""
 
@@ -66,3 +87,17 @@ class RemoveItemFromCartView(LoginRequiredMixin, View):
             ),
             'total': shopping_cart.total
         })
+
+
+class RemoveItemFromMenuView(UserPassesTestMixin, LoginRequiredMixin, View):
+    """Removes a item from menu"""
+
+    def test_func(self):
+        """Checks if user is admin"""
+        return self.request.user.status == 3
+
+    def post(self, request):
+        """Removes item from menu"""
+        pk = int(request.POST.get('deleted_item'))
+        Item.objects.get(pk=pk).delete()
+        return redirect('menu:items')

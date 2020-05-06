@@ -14,4 +14,14 @@ urlpatterns = [
         view=views.RemoveItemFromCartView.as_view(),
         name='remove_from_cart'
     ),
+       path(
+        route='add-to-menu',
+        view=views.AddItemToMenuView.as_view(),
+        name='add_to_menu'
+    ),
+    path(
+        route='remove-from-menu',
+        view=views.RemoveItemFromMenuView.as_view(),
+        name='remove_from_menu'
+    ),
 ]

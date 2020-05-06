@@ -44,12 +44,23 @@
           <a class="dropdown-item" href="#">Gestionar direcciones</a>
           <a class="dropdown-item" href="#">Gestionar métodos de pago</a>
           {% elif request.user.status == 3 %}
-          <a class="dropdown-item" href="#">Añadir artículo</a>
-          <a class="dropdown-item" href="#">Gestionar repartidores</a>
+          <a class="dropdown-item" href="{% url 'menu:add_to_menu' %}">Añadir artículo</a>
+          <a class="dropdown-item" href="{% url 'users:delivery_men' %}">Gestionar repartidores</a>
           {% endif %}
           <div class="dropdown-divider"></div>
           <a class="dropdown-item" href="{% url 'users:logout' %}">Cerrar sesión</a>
         </div>
+      </li>
+
+      <li class="nav-item d-lg-none">
+        <a class="nav-link" href="{% url 'users:profile' %}">Ver perfil</a>
+      </li>      
+      {% if request.user.status == 1 %}
+      <li class="nav-item d-lg-none">
+        <a class="nav-link" href="#">Gestionar direcciones</a>
+      </li>
+      <li class="nav-item d-lg-none">
+        <a class="nav-link" href="#">Gestionar métodos de pago</a>
       </li>
       <li class="nav-item d-lg-none">
         <a class="nav-link" href="{% url 'menu:cart' %}">
@@ -61,23 +72,12 @@
           {% endif %}
         </a>
       </li>
-      <li class="nav-item d-lg-none">
-        <a class="nav-link" href="{% url 'users:profile' %}">Ver perfil</a>
-      </li>
-      
-      {% if request.user.status == 1 %}
-      <li class="nav-item d-lg-none">
-        <a class="nav-link" href="#">Gestionar direcciones</a>
-      </li>
-      <li class="nav-item d-lg-none">
-        <a class="nav-link" href="#">Gestionar métodos de pago</a>
-      </li>
       {% elif request.user.status == 3 %}
       <li class="nav-item d-lg-none">
-        <a class="nav-link" href="#">Añadir artículo</a>
+        <a class="nav-link" href="{% url 'menu:add_to_menu' %}">Añadir artículo</a>
       </li>
       <li class="nav-item d-lg-none">
-        <a class="nav-link" href="#">Gestionar repartidores</a>
+        <a class="nav-link" href="{% url 'users:delivery_men' %}">Gestionar repartidores</a>
       </li>
       {% endif %}
         

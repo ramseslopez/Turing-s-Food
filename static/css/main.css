@@ -9,6 +9,15 @@ body {
   color: #fff;
 }
 
+.btn-turing:not([href]) {
+  color: #fff;
+}
+
+.btn-turing:hover:not([href]) {
+  color: #fff;
+}
+
+
 .btn-turing:hover {
   background-color: #5000b3;
   border-color: #5000b3;

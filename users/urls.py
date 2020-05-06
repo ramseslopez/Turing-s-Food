@@ -31,4 +31,19 @@ urlpatterns = [
         view=views.ActivateAccount.as_view(),
         name='activate_account'
     ),
+    path(
+        route='delivery-men/',
+        view=views.DeliveryMenListView.as_view(),
+        name='delivery_men'
+    ),
+    path(
+        route='delivery-men/add',
+        view=views.AddDeliveryManView.as_view(),
+        name='add_delivery_man'
+    ),
+    path(
+        route='delivery-men/remove',
+        view=views.RemoveDeliveryManView.as_view(),
+        name='remove_delivery_man'
+    ),
 ]

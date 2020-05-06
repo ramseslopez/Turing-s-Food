@@ -19,8 +19,24 @@
   
 
 <header class="container my-5">
-  <h1 class="display-4">Menú</h1>
-  <p class="leading">Elige lo que quieras entre nuestro amplias opciones</p>
+  <div class="d-flex justify-content-between">
+    <div class="d-flex flex-column justify-content-center align-items-start">
+      <h1 class="display-4">Menú</h1>
+      {% if request.user.status == 1 %}
+      <p class="leading">Elige lo que quieras entre nuestro amplias opciones</p>
+      {% elif  request.user.status == 3 %}
+      <p class="leading">Agrega y elimina los artículos en venta</p>
+      {% endif %}
+    </div>
+
+    {% if request.user.status == 3 %}
+    <div class="d-flex align-items-center">
+      <a role="button" href="{% url 'menu:add_to_menu' %}" class="btn btn-turing">
+        Agregar artículo
+      </a>
+    </div>
+    {% endif %}  
+  </div>
 </header>
 
 <section class="container">  
@@ -34,26 +50,44 @@
           ${{ item.price|stringformat:".2f" }}
         </small>
       </h4>
-      <p>{{ item.description }}</p>
+      <p>{{ item.description }}</p>  
+      {% if request.user.status == 1 %}
       <button class="btn btn-turing add-to-cart" data-id="{{item.id}}">
         Añadir al Carrito
       </button>
+      {% elif request.user.status == 3 %}
+      <button class="btn btn-outline-danger delete-button" data-id="{{item.id}}">
+        Eliminar
+      </button>
+      {% endif %}
     </div>
   </article>
   <hr />
 {% endfor %}
+{% if request.user.status == 3 %}
+<form action="{% url 'menu:remove_from_menu' %}" method="post">
+  {% csrf_token %}
+  <input type="hidden" name="deleted_item" id="deleted-item" />
+</form>
+{% endif %}
 </section>
 {% endblock content %}
 
+{% if request.user.status != 2 %}
 {% block scripts %}
+{% if request.user.status == 1 %}
+<script src="{% static 'js/js.cookie.js' %}"></script>
 <script>
   const addToCartUrl = '{% url "menu:add_to_cart" %}';
 </script>
 <script
-  src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"
-  integrity="sha384-Si3HKTyQYGU+NC4aAF3ThcOSvK+ZQiyEKlYyfjiIFKMqsnCmfHjGa1VK1kYP9UdS"
-  crossorigin="anonymous">
+src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"
+integrity="sha384-Si3HKTyQYGU+NC4aAF3ThcOSvK+ZQiyEKlYyfjiIFKMqsnCmfHjGa1VK1kYP9UdS"
+crossorigin="anonymous">
 </script>
-<script src="{% static 'js/js.cookie.js' %}"></script>
 <script src="{% static 'js/menu.js' %}"></script>
+{% elif request.user.status == 3 %}
+<script src="{% static 'js/menuAdmin.js' %}"></script>
+{% endif %}
 {% endblock scripts %}
+{% endif %}
