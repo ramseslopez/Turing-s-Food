@@ -36,7 +36,9 @@ class OrderAttendView(UserPassesTestMixin, LoginRequiredMixin, ListView):
         return queryset.filter(status__in=[1, 2])
 
 
-class OrderPickUpServiceView(UserPassesTestMixin, LoginRequiredMixin, ListView):
+class OrderPickUpServiceView(
+    UserPassesTestMixin, LoginRequiredMixin, ListView
+):
     """Pickup orders views"""
     model = Order
     template_name = 'orders/pickup.html'
