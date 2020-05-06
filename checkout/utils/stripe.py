@@ -47,5 +47,3 @@ def list_payment_methods(customer_id):
         customer=customer_id,
         type="card",
     )
-
-

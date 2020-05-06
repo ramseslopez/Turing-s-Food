@@ -9,7 +9,7 @@ from .utils import price_to_cents, stripe
 from addresses.models import Address
 
 
-class CheckoutView(TemplateView):
+class CheckoutView(LoginRequiredMixin, TemplateView):
     """Checkouts with Stripe"""
     template_name = 'checkout/index.html'
 
@@ -26,11 +26,15 @@ class CheckoutView(TemplateView):
                 customer_id=self.request.user.customer_id
             )
             context['payment_methods'] = payment_methods
+        if 'addresses' not in context:
+            context['addresses'] = Address.objects.filter(
+                user=self.request.user
+            )
 
         return context
 
 
-class CheckoutSuccessView(TemplateView):
+class CheckoutSuccessView(LoginRequiredMixin, TemplateView):
     """Shows that order is ready"""
     template_name = 'checkout/success.html'
 
