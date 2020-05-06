@@ -65,6 +65,8 @@
   const publishableKey = '{{ STRIPE_PUBLISHABLE_KEY }}';
   const name = '{{ request.user.get_full_name }}';
   const stripeKeyUrl = '{% url "checkout:stripe_key" %}';
+  const payUrl = '{% url "checkout:pay" %}';
+  const successUrl = '{% url "checkout:success" %}';
 </script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 <script src="{% static 'js/js.cookie.js' %}"></script>

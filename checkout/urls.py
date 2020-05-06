@@ -16,4 +16,14 @@ urlpatterns = [
         view=views.CheckoutClientSecretView.as_view(),
         name='stripe_key'
     ),
+    path(
+        route='pay',
+        view=views.PayView.as_view(),
+        name='pay'
+    ),
+    path(
+        route='success',
+        view=views.CheckoutSuccessView.as_view(),
+        name='success'
+    ),
 ]

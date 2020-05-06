@@ -3,8 +3,8 @@ const $cardComponent = document.querySelector('#new-card');
 const $paymentItems = document.querySelectorAll('.payment-item');
 const $saveCardCheck = document.querySelector('#save-card');
 
-// const csrftoken = Cookies.get('csrftoken');
-let currentItem = null
+let currentItem = null;
+let newCard = false;
 $payButton.disabled = true;
 
 fetch(stripeKeyUrl)
@@ -13,7 +13,13 @@ fetch(stripeKeyUrl)
   .then(({ stripe, card, clientSecret }) => {
     $payButton.disabled = false;
     $payButton.addEventListener('click', () => {
-      payWithNewCard(stripe, card, clientSecret);
+      if (currentItem) {
+        if (newCard) {
+          payWithNewCard(stripe, card, clientSecret);
+        } else {
+          pay(stripe)
+        }
+      }
     });
   });
 
@@ -36,8 +42,8 @@ function setupElements(data) {
     }
   };
 
-  const card = elements.create("card", { style: style });
-  card.mount("#card-element");
+  const card = elements.create('card', { style: style });
+  card.mount('#card-element');
   card.addEventListener('change', displayErrors);
 
   return {
@@ -47,9 +53,7 @@ function setupElements(data) {
   };
 };
 
-/*
- * Collect card details and pay for the order
- */
+
 function payWithNewCard(stripe, card, clientSecret) {
   // changeLoadingState(true);
   const paymentSettings = {
@@ -76,11 +80,53 @@ function payWithNewCard(stripe, card, clientSecret) {
         })
       } else {
         if (result.paymentIntent.status === 'succeeded') {
-          alert('Succeeded')
+          redirectToSuccessUrl()
         }
       }
     });
 };
+
+function pay(stripe) {
+  // changeLoadingState(true);
+  const paymentId = currentItem.dataset.paymentId;
+  const csrftoken = Cookies.get('csrftoken'); 
+  const data = new FormData();
+  data.append('paymentId', paymentId);
+  fetch(payUrl, {
+      method: 'POST',
+      body: data,
+      headers: {
+        'X-CSRFToken': csrftoken,
+      }
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (data.status !== 'succeeded') {
+        stripe.confirmCardPayment(data.client_secret, {
+          payment_method: paymentId
+        }).then(function(result) {
+          if (result.error) {
+            Swal.fire({
+              title: 'Lo sentimos...',
+              text: result.error.message,
+              icon: 'error',
+              confirmButtonText: 'Entendido'
+            })
+          } else {
+            if (result.paymentIntent.status === 'succeeded') {
+              redirectToSuccessUrl()
+            }
+          }
+        });
+      } else {
+        redirectToSuccessUrl()
+      }
+    })
+}
+
+function redirectToSuccessUrl() {
+  window.location.href = successUrl + '?cola=hola';
+}
 
 
 function changeLoadingState(isLoading) {
@@ -112,10 +158,11 @@ for (const paymentItem of $paymentItems) {
       paymentItem.classList.add('active');
       currentItem = paymentItem;
       if (paymentItem.classList.contains('new-card-item')) {
+        newCard = true
         $cardComponent.classList.remove('d-none');
       } else {
+        newCard = false
         $cardComponent.classList.add('d-none');
-        const paymentId = paymentItem.dataset.paymentId;
       }
     } else {
       currentItem = null

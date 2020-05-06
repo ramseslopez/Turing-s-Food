@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block meta %}
+<script src="https://kit.fontawesome.com/91a765634f.js" crossorigin="anonymous"></script>
+<script src="https://js.stripe.com/v3/"></script>
+{% endblock meta %}
+
+{% block title %}
+<title>Checkout</title>
+{% endblock title %}
+
+{% block content %}
+{% include '_navbar.html' %}
+<header class="container my-5 text-center">
+  <h1 class="display-4">¡Lo lograste!</h1>
+  <p class="lead text-muted" id="info-text">
+    Espera tu comida pronto
+  </p>
+</header>
+{% endblock content %}

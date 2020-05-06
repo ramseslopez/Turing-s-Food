@@ -29,6 +29,11 @@ class CheckoutView(TemplateView):
         return context
 
 
+class CheckoutSuccessView(TemplateView):
+    """Shows that order is ready"""
+    template_name = 'checkout/success.html'
+
+
 class CheckoutClientSecretView(LoginRequiredMixin, View):
     """Returns stripe client's secret"""
 
@@ -41,3 +46,25 @@ class CheckoutClientSecretView(LoginRequiredMixin, View):
         )
         client_secret = payment_intent.get('client_secret')
         return JsonResponse({'clientSecret': client_secret})
+
+
+class PayView(LoginRequiredMixin, View):
+    """Pays with specified method"""
+
+    def post(self, request):
+        """Tooks specified method and pays with it"""
+        amount = price_to_cents(request.user.shoppingcart.total)
+        intent = stripe.create_payment_intent(
+            amount=amount,
+            customer_id=request.user.customer_id,
+            payment_method=request.POST.get('paymentId')
+        )
+        intent_status = intent.get('status')
+        data = {
+            'status': intent_status
+        }
+
+        if intent_status != 'succeeded':
+            data['client_secret'] = intent.get('client_secret')
+
+        return JsonResponse(data)
