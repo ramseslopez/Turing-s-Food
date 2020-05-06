@@ -6,5 +6,5 @@ from . import views
 
 
 urlpatterns = [
-    path('add', views.UserAddressCreateView.as_view(), name='add'),
+    path('add', views.AddressCreateView.as_view(), name='add'),
 ]

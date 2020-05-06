@@ -18,7 +18,6 @@
 {% include '_navbar.html' %}
 
 <header class="container my-5 text-center">
-  
   <h1 class="display-4">Carrito</h1>
   <p class="lead text-muted" id="info-text">
     {% if itemset_list %}
@@ -40,8 +39,8 @@
           <small class="text-muted">
           </small>
         </h4>
-        <p class="mb-0 text-muted">Precio individual: ${{ item_set.item.price|stringformat:".2f" }}</p>
-        <p class="mt-0 text-muted">Subtotal: ${{ item_set.subtotal|stringformat:".2f" }}</p>
+        <p class="mb-0 text-muted">Precio individual: ${{ item_set.item.price|stringformat:'.2f' }}</p>
+        <p class="mt-0 text-muted">Subtotal: ${{ item_set.subtotal|stringformat:'.2f' }}</p>
         <button class="btn btn-outline-danger remove-button" data-id="{{item_set.id}}">
           Eliminar del Carrito
         </button>
@@ -51,10 +50,13 @@
   </article>
 {% endfor %}
 {% if itemset_list %}
-  <article class="text-center">
-    <h3 id="total">
-      Total: ${{ request.user.shoppingcart.total|stringformat:".2f" }}</span>
+  <article class="text-center text-lg-right" id="total">
+    <h3>
+      Total: ${{ request.user.shoppingcart.total|stringformat:'.2f' }}</span>
     </h3>
+    <a role="button" href="{% url 'checkout:index' %}" class="btn btn-lg btn-turing mt-2 mb-5">
+      Completar Orden
+    </a>
   </article>
 {% endif %}
   

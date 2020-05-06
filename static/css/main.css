@@ -3,11 +3,24 @@ body {
   font-family: 'Nunito';
 }
 
+.text-turing {
+  color: #7200ff !important;
+}
+
 .btn-turing {
   background-color: #7200ff;
-  border-color: #5000b3;
+  border-color: #7200ff;
   color: #fff;
 }
+
+.btn-turing:not([href]) {
+  color: #fff;
+}
+
+.btn-turing:hover:not([href]) {
+  color: #fff;
+}
+
 
 .btn-turing:hover {
   background-color: #5000b3;
@@ -22,4 +35,9 @@ body {
 .btn-light-purple {
   background-color: #dfc5ff !important;
   color: #000 !important;
+}
+
+.list-group-item.active {
+  background-color: #7300ff92 !important;
+  border-color: #7300ff92 !important;
 }

@@ -6,7 +6,13 @@ from django.db import models
 
 class Address(models.Model):
     """Address base model"""
+    user = models.ForeignKey(
+        verbose_name='usuario',
+        to=get_user_model(),
+        on_delete=models.CASCADE
+    )
     name = models.CharField('nombre', max_length=255)
+    alias = models.CharField('alias', max_length=50)
     indoor_number = models.CharField(
         verbose_name='número interior',
         max_length=50,
@@ -26,17 +32,3 @@ class Address(models.Model):
     class Meta:
         verbose_name = 'dirección'
         verbose_name_plural = 'direcciones'
-
-
-class UserAddress(Address):
-    """Address for users"""
-    user = models.ForeignKey(
-        verbose_name='usuario',
-        to=get_user_model(),
-        on_delete=models.CASCADE
-    )
-    alias = models.CharField('alias', max_length=50)
-
-    class Meta:
-        verbose_name = 'dirección de usuario'
-        verbose_name_plural = 'direcciones de usuarios'

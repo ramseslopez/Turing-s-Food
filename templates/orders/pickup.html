@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load l10n %}
+
+{% block meta %}
+{% if request.user.deliveryman.is_active and request.user.deliveryman.is_available %}
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css"
+  integrity="sha384-R334r6kryDNB/GWs2kfB6blAOyWPCxjdHSww/mo7fel+o5TM/AOobJ0QpGRXSDh4"
+  crossorigin="anonymous"
+/>
+{% elif request.user.deliveryman.current_delivery %}
+<link rel="stylesheet" href="{% static 'css/pickup.css' %}">
+{% endif %}
+{% endblock meta %}
+
+{% block title %}
+<title>Recoger</title>
+{% endblock title %}
+
+{% block content %}
+{% include '_navbar.html' %}
+<header class="container mt-5 text-center">
+  <h1>Recoger una órden</h1>
+  {% if not request.user.deliveryman.is_active %}
+  <p class="lead text-muted">Antes debes reportarte como repartidor activo</p>
+  <a role="button" href="{% url 'users:activate_pickup' %}" class="btn btn-turing btn-lg">
+    Activar
+  </a>
+  {% elif request.user.deliveryman.is_active and request.user.deliveryman.is_available %}
+  <p class="lead text-muted">Elige entre ambas opciones</p>
+  <button class="btn btn-turing btn-lg" id="pickup-button">
+    Recoger pedido
+  </button>
+  <a role="button" href="{% url 'users:stop_pickup' %}" class="btn btn-danger btn-lg">
+    Desactivar
+  </a>
+  {% else %}
+  <p class="lead text-muted">Entregar a {{ request.user.deliveryman.current_delivery.user.get_full_name }}</p>
+  <a role="button" href="{% url 'orders:delivered' %}" class="btn btn-turing btn-lg">
+    Marcar como entregada
+  </a>
+  {% endif %}
+</header>
+{% if request.user.deliveryman.current_delivery %}
+<section class="container my-5 d-flex justify-content-center align-items-center">
+  <div id="map"></div>
+</section>
+{% endif %}
+{% endblock content %}
+
+{% block scripts %}
+{% if request.user.deliveryman.is_active and request.user.deliveryman.is_available %}
+<script
+  src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"
+  integrity="sha384-Si3HKTyQYGU+NC4aAF3ThcOSvK+ZQiyEKlYyfjiIFKMqsnCmfHjGa1VK1kYP9UdS"
+  crossorigin="anonymous">
+</script>
+<script>
+  const pickupUrl = '{% url "orders:pickup" %}';
+</script>
+<script src="{% static 'js/pickup.js' %}"></script>
+{% elif request.user.deliveryman.current_delivery %}
+<script>
+  const latitude = {{ request.user.deliveryman.current_delivery.address.latitude|unlocalize }};
+  const longitude = {{ request.user.deliveryman.current_delivery.address.longitude|unlocalize }};
+</script>
+<script src="{% static 'js/pickupLocation.js' %}"></script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key={{ GOOGLE_CLOUD_API_KEY }}&libraries=places&callback=startLocationServices"></script>
+{% endif %}
+{% endblock scripts %}

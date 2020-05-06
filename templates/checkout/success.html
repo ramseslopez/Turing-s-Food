@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block meta %}
+<script src="https://kit.fontawesome.com/91a765634f.js" crossorigin="anonymous"></script>
+<script src="https://js.stripe.com/v3/"></script>
+{% endblock meta %}
+
+{% block title %}
+<title>Checkout</title>
+{% endblock title %}
+
+{% block content %}
+{% include '_navbar.html' %} 
+<header class="container my-5 text-center">
+  <h1 class="display-4">{{ order }} confirmada</h1>
+  <p class="lead text-muted" id="info-text">
+    Pronto recibirás tu recibo en tu correo
+  </p>
+  <p class="mt-5">
+    Ordenada el {{ order.ordered_at }}
+  </p>
+  <p>
+    Descripción
+    <pre>{{ order.description }}</pre>
+  </p>
+  <p>Total: ${{ order.amount|stringformat:'.2f' }}</p>
+</header>
+{% endblock content %}

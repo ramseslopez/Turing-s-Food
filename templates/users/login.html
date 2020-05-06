@@ -6,7 +6,7 @@
 {% endblock meta %}
 
 {% block title %}
-<title>TF | Login</title>
+<title>Iniciar Sesión</title>
 {% endblock title %}
 
 {% block content %}
@@ -67,8 +67,8 @@
   <div class="container mt-4">
     <p class="my-1">¿No tienes cuenta? <a style="color: #7200ff" href="{% url 'users:signup' %}">Regístrate</a></p>
     <p class="my-1">Ingreso
-      <a style="color: #7200ff">Administrador</a> /
-      <a style="color: #7200ff">Repartidor</a>
+      <a href="{% url 'users:delivery_men_login' %}{% if request.GET.next %}?next={{ request.GET.next }}{% endif %}" style="color: #7200ff">Repartidor</a> /
+      <a href="{% url 'users:admin_login' %}{% if request.GET.next %}?next={{ request.GET.next }}{% endif %}" style="color: #7200ff">Administrador</a>
     </p>
   </div>
   <p class="mt-5 mb-3 text-muted">&copy; 2020-2021</p>

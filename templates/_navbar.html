@@ -10,13 +10,60 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
-        <a class="nav-link active" href="{% url 'menu:items' %}">Menú</a>
+        <a class="nav-link" href="{% url 'menu:items' %}">Menú</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link active" href="{% url 'users:profile' %}">Perfil</a>
+      {% if request.user.status == 1 %}
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'orders:list' %}">Órdenes</a>
+        </li>
+      {% endif %}
+      {% if request.user.status == 2 %}
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'orders:pickup_service' %}">Repartir</a>
+        </li>
+      {% endif %}
+      {% if request.user.status == 3 %}
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'orders:attend' %}">Atender</a>
+        </li>
+      {% endif %}
+      <li class="nav-item dropdown d-none d-lg-block">
+        <a class="nav-link dropdown-toggle" href="{% url 'users:profile' %}" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          {% if request.user.status == 1 %}
+          Perfil
+          {% elif request.user.status == 2 %}
+          Repartidor
+          {% elif request.user.status == 3 %}
+          Administrador
+          {% endif %}
+        </a>
+        <div class="dropdown-menu" aria-labelledby="userDropdown">
+          <h6 class="dropdown-header">Bienvenido, {{ request.user.first_name }}</h6>
+          <a class="dropdown-item" href="{% url 'users:profile' %}">Ver perfil</a>
+          {% if request.user.status == 1 %}
+          <a class="dropdown-item" href="#">Gestionar direcciones</a>
+          <a class="dropdown-item" href="#">Gestionar métodos de pago</a>
+          {% elif request.user.status == 3 %}
+          <a class="dropdown-item" href="{% url 'menu:add_to_menu' %}">Añadir artículo</a>
+          <a class="dropdown-item" href="{% url 'users:delivery_men' %}">Gestionar repartidores</a>
+          {% endif %}
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="{% url 'users:logout' %}">Cerrar sesión</a>
+        </div>
+      </li>
+
+      <li class="nav-item d-lg-none">
+        <a class="nav-link" href="{% url 'users:profile' %}">Ver perfil</a>
+      </li>      
+      {% if request.user.status == 1 %}
+      <li class="nav-item d-lg-none">
+        <a class="nav-link" href="#">Gestionar direcciones</a>
       </li>
       <li class="nav-item d-lg-none">
-        <a class="nav-link active" href="{% url 'menu:cart' %}">
+        <a class="nav-link" href="#">Gestionar métodos de pago</a>
+      </li>
+      <li class="nav-item d-lg-none">
+        <a class="nav-link" href="{% url 'menu:cart' %}">
           Ir al Carrito
           {% if not request.user.shoppingcart.itemset_set.count == 0 %}
           <span class="cart-count mobile {% if request.user.shoppingcart.itemset_set.count == 0 %}d-none{% endif %}">
@@ -25,10 +72,20 @@
           {% endif %}
         </a>
       </li>
+      {% elif request.user.status == 3 %}
       <li class="nav-item d-lg-none">
-        <a class="nav-link active" href="{% url 'users:logout' %}">Cerrar sesión</a>
+        <a class="nav-link" href="{% url 'menu:add_to_menu' %}">Añadir artículo</a>
+      </li>
+      <li class="nav-item d-lg-none">
+        <a class="nav-link" href="{% url 'users:delivery_men' %}">Gestionar repartidores</a>
+      </li>
+      {% endif %}
+        
+      <li class="nav-item d-lg-none">
+        <a class="nav-link" href="{% url 'users:logout' %}">Cerrar sesión</a>
       </li>
     </ul>
+    {% if request.user.status == 1 %}
     <a
       role="button"
       href="{% url 'menu:cart' %}"
@@ -40,12 +97,6 @@
         {{ request.user.shoppingcart.itemset_set.count }}
       </span>
     </a>
-    <a
-      role="button"
-      href="{% url 'users:logout' %}"
-      class="btn btn-light-purple d-none d-lg-block"
-    >
-      Cerrar sesión
-    </a>
+    {% endif %}
   </div>
 </nav>

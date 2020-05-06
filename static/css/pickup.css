@@ -1,0 +1,14 @@
+#map {
+  height: 60vh;
+  width: 80vw;
+}
+
+@media(max-width: 728px) {
+  #map {
+    height: 70vh;
+  }
+}
+
+html, body {
+  height: 100%;
+}
