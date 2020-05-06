@@ -66,7 +66,6 @@ class AddItemToMenuView(UserPassesTestMixin, LoginRequiredMixin, CreateView):
         return self.request.user.status == 3
 
 
-
 class RemoveItemFromCartView(LoginRequiredMixin, View):
     """Removes a item set to user's cart"""
 

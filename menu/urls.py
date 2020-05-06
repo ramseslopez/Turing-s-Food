@@ -14,7 +14,7 @@ urlpatterns = [
         view=views.RemoveItemFromCartView.as_view(),
         name='remove_from_cart'
     ),
-       path(
+    path(
         route='add-to-menu',
         view=views.AddItemToMenuView.as_view(),
         name='add_to_menu'

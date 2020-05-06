@@ -167,7 +167,9 @@ class AddDeliveryManView(UserPassesTestMixin, LoginRequiredMixin, View):
                 DeliveryMan.objects.create(user=user)
                 user.is_delivery_man = True
                 user.save()
-                data['message'] = 'Se ha registrado al usuario como repartidor.'
+                data['message'] = (
+                    'Se ha registrado al usuario como repartidor.'
+                )
                 data['success'] = True
         return JsonResponse(data)
 
