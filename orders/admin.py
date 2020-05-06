@@ -1,4 +1,4 @@
-"""Checkout app admin site"""
+"""Orders app admin site"""
 
 from django.contrib import admin
 

@@ -24,5 +24,6 @@
     Descripción
     <pre>{{ order.description }}</pre>
   </p>
+  <p>Total: ${{ order.amount|stringformat:'.2f' }}</p>
 </header>
 {% endblock content %}

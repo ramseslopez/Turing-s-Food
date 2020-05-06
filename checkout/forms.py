@@ -2,7 +2,7 @@
 
 from django import forms
 
-from .models import Order
+from orders.models import Order
 from menu.models import ShoppingCart
 
 

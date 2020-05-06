@@ -8,7 +8,7 @@ from django.urls import reverse_lazy
 from django.views.generic import View, FormView, DetailView
 
 from .forms import CheckoutForm
-from .models import Order
+from orders.models import Order
 from .utils import price_to_cents, stripe
 from addresses.models import Address
 
