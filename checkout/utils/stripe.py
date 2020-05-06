@@ -13,10 +13,13 @@ def create_customer():
     return stripe.Customer.create()
 
 
-def create_payment_intent(amount, customer_id, payment_method=None, receipt_email=None):
+def create_payment_intent(amount, customer_id, **kwargs):
     """
     Creates a payment intent. If payment method is provided, it uses it
     """
+
+    receipt_email = kwargs.get('receipt_email')
+    payment_method = kwargs.get('payment_method')
 
     if not payment_method:
         return stripe.PaymentIntent.create(

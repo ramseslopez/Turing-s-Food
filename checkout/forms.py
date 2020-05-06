@@ -20,7 +20,9 @@ class CheckoutForm(forms.Form):
         data['description'] = ''
 
         for item_set in item_sets:
-            data['description'] += f'{item_set.quantity}x {item_set.item.name}\n'
+            data['description'] += (
+                f'{item_set.quantity}x {item_set.item.name}\n'
+            )
 
         data['amount'] = shopping_cart.total
         item_sets.delete()
