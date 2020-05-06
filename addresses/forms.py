@@ -2,7 +2,7 @@
 
 from django import forms
 
-from .models import UserAddress
+from .models import Address
 
 
 class AddressForm(forms.ModelForm):
@@ -10,7 +10,7 @@ class AddressForm(forms.ModelForm):
 
     class Meta:
         """Meta definition for Addressform."""
-        model = UserAddress
+        model = Address
         exclude = ['user', ]
 
     def save(self, user):
@@ -21,4 +21,4 @@ class AddressForm(forms.ModelForm):
         if not indoor_number:
             data['indoor_number'] = None
 
-        return UserAddress.objects.create(**data)
+        return Address.objects.create(**data)

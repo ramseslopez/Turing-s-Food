@@ -6,6 +6,7 @@ from django.http import JsonResponse
 from django.views.generic import View, TemplateView
 
 from .utils import price_to_cents, stripe
+from addresses.models import Address
 
 
 class CheckoutView(TemplateView):

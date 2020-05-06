@@ -6,10 +6,10 @@ from django.urls import reverse_lazy
 from django.views.generic import FormView
 
 from .forms import AddressForm
-from .models import UserAddress
+from .models import Address
 
 
-class UserAddressCreateView(LoginRequiredMixin, FormView):
+class AddressCreateView(LoginRequiredMixin, FormView):
     """Adds a new user address with Google Maps APIs"""
     template_name = 'addresses/add.html'
     form_class = AddressForm
@@ -26,7 +26,7 @@ class UserAddressCreateView(LoginRequiredMixin, FormView):
         """Checks if user has not address with form alias, and saves model"""
         alias = form.cleaned_data.get('alias')
         user = self.request.user
-        alias_exists = UserAddress.objects.filter(
+        alias_exists = Address.objects.filter(
             alias=alias,
             user=user
         ).exists()
