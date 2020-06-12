@@ -7,15 +7,26 @@
 {% block content %}
 {% include '_navbar.html' %}
 <header class="container my-5">
-  <h1 class="display-4">
-    Añadír Artículo
-  </h1>
-  <p class="lead">
-    Añade la información del artículo
-  </p>
+  <div class="d-flex justify-content-between align-items-center">
+    <div>
+      <h1 class="display-5">
+        Actualizar artículo
+      </h1>
+      <p class="lead">
+        {{ item }}
+      </p>
+    </div>
+      <figure>
+        <img
+          src="{{ item.image.url }}"
+          alt="{{ item.name }}"
+          style="width: 200px"
+        />
+      </figure>
+  </div>
 </header>
 
-<section class="container">
+<section class="container mb-5">
   <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
     <div class="form-group">
@@ -27,6 +38,7 @@
         placeholder="Corto, que ayude a identificar el producto"
         maxlength="100"
         name="name"
+        value="{{ item.name }}"
         required
       />
     </div>
@@ -40,6 +52,7 @@
         placeholder="Una descripción breve y concisa del producto"
         maxlength="255"
         name="description"
+        value="{{ item.description }}"
         required
       />
     </div>
@@ -48,7 +61,7 @@
       <label for="category">Categoría:</label>
       <select class="form-control" id="category" name="category">
         {% for value, category in form.category.field.choices %}
-        <option value="{{ value }}">{{ category }}</option>
+        <option value="{{ value }}" {% if value == item.category %}selected{% endif %}>{{ category }}</option>
         {% endfor %}
       </select>
     </div>
@@ -61,6 +74,7 @@
         id="price"
         placeholder="En pesos mexicanos"
         name="price"
+        value="{{ item.price|stringformat:'.2f'}}"
         required
       />
     </div>
@@ -74,17 +88,18 @@
           class="custom-file-input"
           id="image"
           accept="image/*"
-          required
         />
         <label class="custom-file-label" for="image" id="file-label">
-          Seleccionar Imagen
+          {{ item.image }}
         </label>
       </div>
     </div>
-    <button class="btn btn-turing btn-block mt-5" type="submit">Añadir</button>
+    <button class="btn btn-turing btn-block mt-5" type="submit">Actualizar</button>
   </form>
 </section>
-{% endblock content %} {% block scripts %}
+{% endblock content %}
+
+{% block scripts %}
 <script>
   const $imageInput = document.querySelector('#image');
   const $imageLabel = document.querySelector('#file-label');

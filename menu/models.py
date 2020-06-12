@@ -9,6 +9,20 @@ class Item(models.Model):
     name = models.CharField('nombre', max_length=100)
     image = models.ImageField('imagen', upload_to='items')
     description = models.CharField('descripción', max_length=255)
+    CATEGORY_CHOICES = (
+        (1, 'Sopa'),
+        (2, 'Platillo Fuerte'),
+        (3, 'Antojitos'),
+        (4, 'Postre'),
+        (5, 'Bebida'),
+        (0, 'Otros'),
+    )
+    category = models.PositiveSmallIntegerField(
+        verbose_name='categoría',
+        choices=CATEGORY_CHOICES,
+        blank=True,
+        default=0
+    )
     price = models.FloatField('precio')
 
     class Meta:

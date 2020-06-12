@@ -50,15 +50,25 @@
           ${{ item.price|stringformat:'.2f' }}
         </small>
       </h4>
-      <p>{{ item.description }}</p>  
+      <p class="mb-0">{{ item.description }}</p>  
+      <p>
+        <small class="text-muted">
+          {{ item.get_category_display }}
+        </small>
+      </p>  
       {% if request.user.status == 1 %}
       <button class="btn btn-turing add-to-cart" data-id="{{item.id}}">
         Añadir al Carrito
       </button>
       {% elif request.user.status == 3 %}
-      <button class="btn btn-outline-danger delete-button" data-id="{{item.id}}">
-        Eliminar
-      </button>
+      <div>
+        <a class="btn btn-outline-dark delete-button" href="{% url 'menu:update_item' item.pk %}">
+          Editar
+        </a>
+        <button class="btn btn-outline-danger delete-button" data-id="{{item.id}}">
+          Eliminar
+        </button>
+      </div>
       {% endif %}
     </div>
   </article>
