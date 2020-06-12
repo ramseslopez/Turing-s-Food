@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+
+{% block title %}
+<title>Añadir Artículo</title>
+{% endblock title %}
+
+{% block content %}
+{% include '_navbar.html' %}
+<header class="container my-5">
+  <div class="d-flex justify-content-between align-items-center">
+    <div>
+      <h1 class="display-5">
+        Actualizar artículo
+      </h1>
+      <p class="lead">
+        {{ item }}
+      </p>
+    </div>
+      <figure>
+        <img
+          src="{{ item.image.url }}"
+          alt="{{ item.name }}"
+          style="width: 200px"
+        />
+      </figure>
+  </div>
+</header>
+
+<section class="container mb-5">
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="form-group">
+      <label for="name">Nombre:</label>
+      <input
+        type="text"
+        class="form-control"
+        id="name"
+        placeholder="Corto, que ayude a identificar el producto"
+        maxlength="100"
+        name="name"
+        value="{{ item.name }}"
+        required
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="description">Descripción corta:</label>
+      <input
+        type="text"
+        class="form-control"
+        id="description"
+        placeholder="Una descripción breve y concisa del producto"
+        maxlength="255"
+        name="description"
+        value="{{ item.description }}"
+        required
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="price">Precio:</label>
+      <input
+        type="number"
+        class="form-control"
+        id="price"
+        placeholder="En pesos mexicanos"
+        name="price"
+        value="{{ item.price|stringformat:'.2f'}}"
+        required
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="image">Imagen *</label>
+      <div class="custom-file">
+        <input
+          type="file"
+          name="image"
+          class="custom-file-input"
+          id="image"
+          accept="image/*"
+        />
+        <label class="custom-file-label" for="image" id="file-label">
+          {{ item.image }}
+        </label>
+      </div>
+    </div>
+    <button class="btn btn-turing btn-block mt-5" type="submit">Añadir</button>
+  </form>
+</section>
+{% endblock content %}
+
+{% block scripts %}
+<script>
+  const $imageInput = document.querySelector('#image');
+  const $imageLabel = document.querySelector('#file-label');
+
+  $imageInput.addEventListener('change', e => {
+    $imageLabel.textContent = e.target.files[0].name;
+  });
+</script>
+{% endblock scripts %}

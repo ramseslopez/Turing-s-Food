@@ -20,6 +20,11 @@ urlpatterns = [
         name='add_to_menu'
     ),
     path(
+        route='update/<int:pk>',
+        view=views.ItemUpdateView.as_view(),
+        name='update_item'
+    ),
+    path(
         route='remove-from-menu',
         view=views.RemoveItemFromMenuView.as_view(),
         name='remove_from_menu'

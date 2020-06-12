@@ -4,7 +4,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.http import JsonResponse
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
-from django.views.generic import ListView, View, CreateView
+from django.views.generic import ListView, View, CreateView, UpdateView
 
 from .models import Item, ItemSet, ShoppingCart
 from .utils import add_item
@@ -14,6 +14,13 @@ class ItemListView(LoginRequiredMixin, ListView):
     """Shows all items"""
     model = Item
     template_name = 'menu/items.html'
+
+    def get(self, request):
+        """Redirects delivery men to pickup view"""
+        if request.user.status == 2:
+            return redirect('orders:pickup_service')
+        else:
+            return super().get(request)
 
     def get_queryset(self):
         """Order items"""
@@ -58,6 +65,18 @@ class AddItemToMenuView(UserPassesTestMixin, LoginRequiredMixin, CreateView):
     """Adds item to menu"""
     model = Item
     template_name = 'menu/add.html'
+    fields = '__all__'
+    success_url = reverse_lazy('menu:items')
+
+    def test_func(self):
+        """Checks if user is admin"""
+        return self.request.user.status == 3
+
+
+class ItemUpdateView(UserPassesTestMixin, LoginRequiredMixin, UpdateView):
+    """Updates a item from menu"""
+    model = Item
+    template_name = 'menu/update.html'
     fields = '__all__'
     success_url = reverse_lazy('menu:items')
 

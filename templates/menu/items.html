@@ -56,9 +56,14 @@
         Añadir al Carrito
       </button>
       {% elif request.user.status == 3 %}
-      <button class="btn btn-outline-danger delete-button" data-id="{{item.id}}">
-        Eliminar
-      </button>
+      <div>
+        <a class="btn btn-outline-dark delete-button" href="{% url 'menu:update_item' item.pk %}">
+          Editar
+        </a>
+        <button class="btn btn-outline-danger delete-button" data-id="{{item.id}}">
+          Eliminar
+        </button>
+      </div>
       {% endif %}
     </div>
   </article>
