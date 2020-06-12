@@ -10,6 +10,7 @@ Repositorio para el proyecto del curso de ingeniería de software de Hanna Oktab
 
 ```command-line
 git clone https://github.com/ramseslopez/Turing-s-Food.git
+cd Turing-s-Food
 ```
 
 * Crear un entorno virtual de la siguiete manera
