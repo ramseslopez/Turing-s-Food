@@ -50,7 +50,12 @@
           ${{ item.price|stringformat:'.2f' }}
         </small>
       </h4>
-      <p>{{ item.description }}</p>  
+      <p class="mb-0">{{ item.description }}</p>  
+      <p>
+        <small class="text-muted">
+          {{ item.get_category_display }}
+        </small>
+      </p>  
       {% if request.user.status == 1 %}
       <button class="btn btn-turing add-to-cart" data-id="{{item.id}}">
         Añadir al Carrito
