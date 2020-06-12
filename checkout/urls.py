@@ -1,6 +1,6 @@
 """Checkout app URL config"""
 
-from django.urls import path
+from django.urls import include, path
 
 from . import views
 
@@ -26,4 +26,6 @@ urlpatterns = [
         view=views.CheckoutSuccessView.as_view(),
         name='success'
     ),
+    path('ratings/', include('star_ratings.urls', namespace='ratings')),
+    path('rating/', views.Rating.as_view(), name='rating'),
 ]

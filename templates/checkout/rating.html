@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load ratings %}
+
+<html>
+
+    {% block meta %}
+      <link rel="stylesheet" href="{% static 'css/signup.css' %}">
+    {% endblock meta %}
+
+    {% block title %}
+    <title>¡Califica nuestro servicio!</title>
+    {% endblock title %}
+    {% block content %}
+    {% ratings order.description%}
+    <div class="container">
+      <div class="row justify-content-center align-items-center">
+        <div class="col-12 col-md-4">
+          <img
+	          src="{% static 'img/Moto.png' %}"
+	          alt="chale"
+	          width="230"
+	          height="230"
+          />
+        </div>
+      </div>
+            <hgroup>
+                <h1>Califica nuestro servicio</h1>
+                <h2>¡Y que disfrutes tu comida!</h2>
+            </hgroup>
+            <a role="button" class="btn btn-warning" href="{% url 'menu:items' %}">Volver al inicio</a>
+    </div>
+
+    {% endblock content %}
+</html>

@@ -1,7 +1,8 @@
 """Users app URL configuration"""
 
-from django.contrib.auth.views import LogoutView
+
 from django.urls import path
+from django.contrib.auth.views import LogoutView
 
 from . import views
 
@@ -56,4 +57,5 @@ urlpatterns = [
         view=views.StopPickupView.as_view(),
         name='stop_pickup'
     ),
+    
 ]

@@ -9,6 +9,7 @@
     {% load static %}
     <link rel="shortcut icon" href="{% static 'favicon.ico' %}" type="image/x-icon" />
     <link rel="icon" href="{% static 'favicon.ico' %}" type="image/x-icon" />
+    <link rel="stylesheet" href="{% static 'star-ratings/css/star-ratings.css' %}">
     <meta name="theme-color" content="#7200ff">
     <link
       rel="stylesheet"
@@ -27,6 +28,10 @@
   </head>
   <body>
     {% block content %} {% endblock content %}
+    <script 
+     type="text/javascript" 
+     src="{% static 'star-ratings/js/dist/star-ratings.min.js' %}"
+     ></script> 
     <script
       src="https://code.jquery.com/jquery-3.5.1.min.js"
       integrity="sha384-ZvpUoO/+PpLXR1lu4jmpXWu80pZlYUAfxl5NsBMWOEPSjUn/6Z/hRTt8+pR6L4N2"

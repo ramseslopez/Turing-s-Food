@@ -3,7 +3,7 @@
 from django.conf import settings
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import JsonResponse
-from django.shortcuts import get_object_or_404, redirect
+from django.shortcuts import get_object_or_404, redirect , render
 from django.urls import reverse_lazy
 from django.views.generic import View, FormView, DetailView
 
@@ -104,3 +104,11 @@ class PayView(LoginRequiredMixin, View):
             data['id'] = intent_id
 
         return JsonResponse(data)
+
+class Rating(View):
+
+    template = "rating.html"
+
+    def get(self,request):
+
+        return render(request,self.template)
