@@ -62,6 +62,18 @@ INSTALLED_APPS += [
     'gunicorn'
 ]
 
+# Cache
+CACHES = {
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": env('REDIS_URL'),
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+        }
+    }
+}
+CACHE_TTL = 60 * 15
+
 # WhiteNoise
 MIDDLEWARE.insert(1, 'whitenoise.middleware.WhiteNoiseMiddleware')
 
@@ -77,7 +89,6 @@ sentry_sdk.init(
 )
 
 # Email
-
 SENDGRID_SANDBOX_MODE_IN_DEBUG = False
 
 # Google Cloud
