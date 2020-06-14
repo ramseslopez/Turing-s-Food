@@ -1,0 +1,59 @@
+{% extends 'base.html' %} {% load static %}
+
+<html>
+  {% block meta %}
+  <link rel="stylesheet" href="{% static 'css/rating.css' %}" />
+  {% endblock meta %} {% block title %}
+  <title>¡Califica nuestro servicio!</title>
+  {% endblock title %} {% block content %}
+
+  <div class="container" id="app">
+    <div class="row justify-content-center align-items-center">
+      <div class="col-12 col-md-4">
+        <img
+          src="{% static 'img/Eating.png' %}"
+          alt="parry-eating"
+          width="230"
+          height="230"
+        />
+      </div>
+    </div>
+    <div class="error-page-wrap">
+      <article class="error-page gradient">
+        <hgroup>
+          <h1>Califica nuestro servicio</h1>
+        </hgroup>
+        <form method="POST">
+          {% csrf_token %}
+          <input type="hidden" name="rating" :value="rating">
+          <div class="d-flex justify-content-center align-items-center my-5">
+            <star-rating
+              v-model="rating"
+              :increment="0.1"
+              :fixed-points="1"
+              inactive-color="#dfc5ff"
+              active-color="#7200ff"
+            />
+          </div>
+          <button class="btn btn-turing">
+            Calificar
+          </button>
+          <a
+            role="button"
+            class="btn btn-warning"
+            href="{% url 'orders:list' %}"
+          >
+            Ir a Órdenes
+          </a>
+        </form>
+      </article>
+    </div>
+  </div>
+  {% endblock content %}
+  
+  {% block scripts %}
+  <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+  <script src="https://unpkg.com/vue-star-rating/dist/star-rating.min.js"></script>
+  <script src="{% static 'js/rating.js' %}"></script>
+  {% endblock scripts %}
+</html>
