@@ -127,11 +127,11 @@ LOGIN_URL = 'users:login'
 LOGIN_REDIRECT_URL = 'menu:items'
 LOGOUT_REDIRECT_URL = 'users:login'
 
-# Gmail
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_USE_TLS = True
-EMAIL_PORT = 587
+# Email
+
+EMAIL_BACKEND = "sendgrid_backend.SendgridBackend"
+SENDGRID_API_KEY = env('SENDGRID_API_KEY')
+
 
 # Security
 SESSION_COOKIE_HTTPONLY = True

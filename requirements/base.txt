@@ -13,3 +13,6 @@ django-htmlmin>=0.11.0,<0.12.0
 
 # Stripe
 stripe>=2.47.0,<2.48.0
+
+# Sendgrid
+django-sendgrid-v5>=0.8.1,<0.9.0
