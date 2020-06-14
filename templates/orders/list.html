@@ -1,13 +1,20 @@
-{% extends 'base.html' %} {% load static %} {% block title %}
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
 <title>Órdenes</title>
-{% endblock title %} {% block content %} {% include '_navbar.html' %}
+{% endblock title %}
+
+{% block content %}
+{% include '_navbar.html' %}
 <header class="container mt-5 mb-4">
   <h1>Órdenes</h1>
 </header>
 
 <section class="container mb-5">
   <h2 class="mb-5 text-turing">Activas</h2>
-  {% for order in order_list %} {% if order.status != 5 %}
+  {% for order in order_list %}
+  {% if order.status != 5 %}
   <article>
     <h4>{{ order }}</h4>
     <p><span class="badge badge-dark">{{ order.get_status_display }}</span></p>
@@ -19,12 +26,14 @@
     <pre>{{ order.description }}</pre>
   </article>
   <hr />
-  {% endif %} {% endfor %}
+  {% endif %} 
+  {% endfor %}
 </section>
 
 <section class="container mb-5">
   <h2 class="mb-5 text-turing">Pasadas</h2>
-  {% for order in order_list %} {% if order.status == 5 %}
+  {% for order in order_list %}
+  {% if order.status == 5 %}
   <article>
     <h4>{{ order }}</h4>
     <p>${{ order.amount|stringformat:'.2f' }}</p>
@@ -34,6 +43,8 @@
     <p class="text-turing">
       Calificado con {{ order.rating|stringformat:'.1f' }} estrellas
     </p>
+    {% else %}
+    <a role="button" href="{% url 'orders:rate' order.pk %}" class="btn btn-turing">Calificar pedido</a>
     {% endif %}
   </article>
   <hr />

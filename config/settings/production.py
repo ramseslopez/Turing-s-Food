@@ -92,6 +92,8 @@ sentry_sdk.init(
 )
 
 # Email
+SENDGRID_API_KEY = env('SENDGRID_API_KEY')
+EMAIL_HOST_USER = env('DJANGO_EMAIL_HOST_USER')
 SENDGRID_SANDBOX_MODE_IN_DEBUG = False
 
 # Google Cloud

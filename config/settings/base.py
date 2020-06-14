@@ -127,8 +127,6 @@ LOGOUT_REDIRECT_URL = 'users:login'
 
 # Email
 EMAIL_BACKEND = "sendgrid_backend.SendgridBackend"
-SENDGRID_API_KEY = env('SENDGRID_API_KEY')
-EMAIL_HOST_USER = env('DJANGO_EMAIL_HOST_USER')
 
 # Security
 SESSION_COOKIE_HTTPONLY = True
