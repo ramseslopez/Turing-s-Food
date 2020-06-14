@@ -57,5 +57,5 @@ urlpatterns = [
         view=views.StopPickupView.as_view(),
         name='stop_pickup'
     ),
-    
+
 ]

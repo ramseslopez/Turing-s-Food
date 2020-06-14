@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load static %}
+
+<html>
+
+    {% block meta %}
+    {% endblock meta %}
+
+    {% block title %}
+    <title>¡Gracias!</title>
+    {% endblock title %}
+    {% block content %}
+    <div class="container">
+      <div class="row justify-content-center align-items-center">
+        <div class="col-12 col-md-4">
+          <img
+	          src="{% static 'img/Thanks.png' %}"
+	          alt="Gracias"
+	          width="250"
+	          height="250"
+          />
+        </div>
+      </div>
+                <hgroup>
+                    <h1>¡Gracias por tu opinión!</h1>
+                    <h2> Esperamos volver a servirte.</h2>
+                </hgroup>
+                <a role="button" class="btn btn-warning" href="{% url 'menu:items' %}">Volver al inicio</a>
+    </div>
+    {% endblock content %}
+</html>
