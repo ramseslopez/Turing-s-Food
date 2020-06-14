@@ -41,7 +41,7 @@ SECURE_CONTENT_TYPE_NOSNIFF = env.bool(
 
 
 # Static files
-# STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
 
 
 # Templates
@@ -63,7 +63,7 @@ INSTALLED_APPS += [
 ]
 
 # WhiteNoise
-MIDDLEWARE.insert(4, 'whitenoise.middleware.WhiteNoiseMiddleware')
+MIDDLEWARE.insert(1, 'whitenoise.middleware.WhiteNoiseMiddleware')
 
 # Dropbox
 DEFAULT_FILE_STORAGE = 'storages.backends.dropbox.DropBoxStorage'
