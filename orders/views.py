@@ -3,11 +3,12 @@
 from django.conf import settings
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.http import JsonResponse
-from django.shortcuts import redirect
-from django.views.generic import ListView, View
-
+from django.shortcuts import redirect, get_object_or_404
+from django.urls import reverse_lazy
+from django.views.generic import ListView, UpdateView, View
 
 from .models import Order
+from .utils import ask_for_rating
 
 
 class OrderListView(LoginRequiredMixin, ListView):
@@ -108,6 +109,7 @@ class OrderDeliveredView(UserPassesTestMixin, LoginRequiredMixin, View):
         order.status = 5
         delivery_man.save()
         order.save()
+        ask_for_rating(order, request)
         return redirect('orders:pickup_service')
 
 
@@ -141,3 +143,17 @@ class OrderPickUpView(UserPassesTestMixin, LoginRequiredMixin, View):
             data['message'] = 'No hay órdenes por recoger'
 
         return JsonResponse(data)
+
+
+class OrderRateView(UserPassesTestMixin, LoginRequiredMixin, UpdateView):
+    """Asks user for rate a order"""
+    model = Order
+    template_name = 'orders/rate.html'
+    fields = ['rating', ]
+    success_url = reverse_lazy('menu:items')
+
+    def test_func(self):
+        """Checks if user owns this order and is not rated yet"""
+        order_pk = self.kwargs.get('pk')
+        order = get_object_or_404(Order, pk=order_pk, rating=None)
+        return self.request.user == order.user

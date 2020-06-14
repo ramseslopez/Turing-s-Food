@@ -17,4 +17,5 @@ urlpatterns = [
     path('prepared', views.OrderPreparedView.as_view(), name='prepared'),
     path('pickup', views.OrderPickUpView.as_view(), name='pickup'),
     path('delivered', views.OrderDeliveredView.as_view(), name='delivered'),
+    path('rate/<int:pk>', views.OrderRateView.as_view(), name='rate'),
 ]

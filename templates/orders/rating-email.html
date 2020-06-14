@@ -92,7 +92,7 @@
         opacity: 0;
       "
     >
-      No olvides confirmar tu cuenta en Turing's Food
+      Para ofrecerte un mejor servicio, ayúdanos evaluando tu pedido.
     </div>
     <table border="0" cellpadding="0" cellspacing="0" width="100%">
       <tr>
@@ -168,7 +168,7 @@
                     line-height: 48px;
                   "
                 >
-                  Confirma tu dirección de correo
+                  Califica tu pedido
                 </h1>
               </td>
             </tr>
@@ -210,10 +210,9 @@
                 "
               >
                 <p style="margin: 0;">
-                  Presiona el botón debajo para confirmar tu correo. Si no
-                  creaste una cuenta para
-                  <a href="{{ domain }}">Turing's Food</a>, puedes ignorar y
-                  borrar este correo.
+                  Presiona el botón debajo para ir a calificar tu pedido en
+                  <a href="{{ domain }}">Turing's Food</a>, de forma que podamos
+                  seguirte ofreciendo el mejor servicio.
                 </p>
               </td>
             </tr>
@@ -233,7 +232,7 @@
                             style="border-radius: 6px;"
                           >
                             <a
-                              href="{{ domain }}{% url 'users:activate_account' user_id token %}"
+                              href="{{ domain }}{% url 'orders:rate' order_id %}"
                               target="_blank"
                               style="
                                 display: inline-block;
@@ -245,7 +244,7 @@
                                 text-decoration: none;
                                 border-radius: 6px;
                               "
-                              >Confirmar correo</a
+                              >Calificar pedido</a
                             >
                           </td>
                         </tr>
@@ -275,11 +274,10 @@
                 </p>
                 <p style="margin: 0;">
                   <a
-                    href="{{ domain }}{% url 'users:activate_account' user_id token %}"
+                    href="{{ domain }}{% url 'orders:rate' order_id %}"
                     target="_blank"
-                    >{{ domain }}{% url 'users:activate_account' user_id token
-                    %}</a
-                  >
+                    >{{ domain }}{% url 'orders:rate' order_id %}
+                  </a>
                 </p>
               </td>
             </tr>
@@ -341,8 +339,8 @@
                 "
               >
                 <p style="margin: 0;">
-                  Recibiste este correo porque recibimos un registro desde tu
-                  cuenta. Si tú no te has registrado, puedes eliminar el correo.
+                  Recibiste este correo porque te entregamos una orden. Si no has
+                  hecho una orden o no la recibiste, contacta a atención a clientes.
                 </p>
               </td>
             </tr>
