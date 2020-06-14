@@ -27,7 +27,7 @@
   {% for order in order_list %} {% if order.status == 5 %}
   <article>
     <h4>{{ order }}</h4>
-    <p>{{ order.amount }}</p>
+    <p>${{ order.amount|stringformat:'.2f' }}</p>
     <pre>{{ order.description }}</pre>
 
     {% if order.rating %}
