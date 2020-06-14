@@ -40,4 +40,3 @@ def ask_for_rating(order, request):
     msg.attach_file(regular_font)
     msg.attach_file(bold_font)
     msg.send()
-
