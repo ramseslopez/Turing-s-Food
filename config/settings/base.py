@@ -112,7 +112,6 @@ USE_TZ = True
 
 
 # Static files (CSS, JavaScript, Images)
-
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS = [
@@ -121,17 +120,15 @@ STATICFILES_DIRS = [
 
 
 # Authentication
-
 AUTH_USER_MODEL = 'core.User'
 LOGIN_URL = 'users:login'
 LOGIN_REDIRECT_URL = 'menu:items'
 LOGOUT_REDIRECT_URL = 'users:login'
 
 # Email
-
 EMAIL_BACKEND = "sendgrid_backend.SendgridBackend"
 SENDGRID_API_KEY = env('SENDGRID_API_KEY')
-
+EMAIL_HOST_USER = env('DJANGO_EMAIL_HOST_USER')
 
 # Security
 SESSION_COOKIE_HTTPONLY = True
