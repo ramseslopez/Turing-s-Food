@@ -53,7 +53,7 @@
       data-payment-id="{{ payment_method.id }}"
     >
       {% with 'img/payments/'|add:payment_method.card.brand|add:'.png' as payment_image %}
-        <img class="mr-3" src="{% static payment_image %}" alt="payment_method.card.brand" height="20" />
+        <img class="mr-3" src="{% static payment_image %}" alt="{{payment_method.card.brand}}" height="20" />
       {% endwith %}
       •••• {{ payment_method.card.last4 }}
     </button>

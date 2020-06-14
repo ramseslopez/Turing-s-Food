@@ -63,7 +63,7 @@ INSTALLED_APPS += [
 ]
 
 # WhiteNoise
-MIDDLEWARE.insert(1, 'whitenoise.middleware.WhiteNoiseMiddleware')
+MIDDLEWARE.insert(4, 'whitenoise.middleware.WhiteNoiseMiddleware')
 
 # Dropbox
 DEFAULT_FILE_STORAGE = 'storages.backends.dropbox.DropBoxStorage'
