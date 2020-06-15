@@ -21,7 +21,7 @@
 	    alt="Turing's Food Logo"
 	    width="144"
 	    height="144"
-        />
+  />
 
   <h1 class="h3 mb-3 font-weight-normal">Regístrate</h1>
 
@@ -98,15 +98,21 @@
     name="password_confirmation"
     required
   />
-  <button class="btn btn-lg btn-turing btn-block mt-3" type="submit">
+  <button
+    class="g-recaptcha btn btn-lg btn-turing btn-block mt-3"
+    data-sitekey="{{ RECAPTCHA_SITE_KEY }}" 
+    data-callback='onSubmit' 
+    data-action='submit'
+    type="submit"
+  >
     Crear Cuenta
   </button>
   <div class="container mt-4">
     <p class="my-0">
       ¿Ya tienes cuenta?
-      <a style="color: #7200ff" href="{% url 'users:login' %}"
-        >Iniciar sesión</a
-      >
+      <a style="color: #7200ff" href="{% url 'users:login' %}">
+        Iniciar sesión
+      </a>
     </p>
   </div>
   <p class="mt-5 mb-3 text-muted">&copy; 2020-2021</p>
@@ -114,6 +120,7 @@
 {% endblock content %}
 
 {% block scripts %}
+  <script src="https://www.google.com/recaptcha/api.js"></script>
   <script src="{% static 'js/signup.js' %}"></script>
 {% endblock scripts %}
   

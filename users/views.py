@@ -9,11 +9,12 @@ from django.views.generic import FormView, TemplateView, ListView, View
 from django.shortcuts import redirect
 
 from .forms import SignupForm
-from .utils import send_email_confirmation, check_token
+from .mixins import ReCaptchaV3Mixin
 from .models import DeliveryMan
+from .utils import send_email_confirmation, check_token
 
 
-class LoginView(auth_views.LoginView):
+class LoginView(ReCaptchaV3Mixin, auth_views.LoginView):
     """Authenticates users"""
     template_name = 'users/login.html'
     redirect_authenticated_user = True
@@ -25,8 +26,11 @@ class LoginView(auth_views.LoginView):
         user.save()
         return super().form_valid(form)
 
+    def form_invalid(self, form):
+        return super().form_invalid(form)
 
-class DeliveryMenLoginView(auth_views.LoginView):
+
+class DeliveryMenLoginView(ReCaptchaV3Mixin, auth_views.LoginView):
     """Authenticates delivery men"""
     template_name = 'users/delivery-men-login.html'
     redirect_authenticated_user = True
@@ -51,7 +55,7 @@ class DeliveryMenLoginView(auth_views.LoginView):
         return super().form_valid(form)
 
 
-class AdminLoginView(auth_views.LoginView):
+class AdminLoginView(ReCaptchaV3Mixin, auth_views.LoginView):
     """Authenticates admins"""
     template_name = 'users/admin-login.html'
     redirect_authenticated_user = True
@@ -76,12 +80,13 @@ class AdminLoginView(auth_views.LoginView):
         return super().form_valid(form)
 
 
-class SignupView(FormView):
+class SignupView(ReCaptchaV3Mixin, FormView):
     """User registry"""
     form_class = SignupForm
     template_name = 'users/signup.html'
     success_url = reverse_lazy('users:confirmation_sent')
 
+    # @check_recaptcha_v3
     def form_valid(self, form):
         """Saves user"""
         user = form.save()

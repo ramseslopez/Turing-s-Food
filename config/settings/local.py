@@ -4,7 +4,8 @@ from .base import *  # NOQA
 from .base import env
 
 # Base
-environ.Env.read_env(os.path.join(BASE_DIR, '.env')) # This reads `.env` file variables
+# This reads `.env` file variables
+environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 DEBUG = env.bool('DJANGO_DEBUG', True)
 
 # Security
@@ -43,7 +44,6 @@ CSRF_COOKIE_HTTPONLY = False
 SENDGRID_API_KEY = env('SENDGRID_API_KEY')
 EMAIL_HOST_USER = env('DJANGO_EMAIL_HOST_USER')
 SENDGRID_SANDBOX_MODE_IN_DEBUG = True
-SENDGRID_ECHO_TO_STDOUT = True
 
 # Google Cloud
 GOOGLE_CLOUD_API_KEY = env('GOOGLE_CLOUD_API_KEY')
@@ -51,3 +51,7 @@ GOOGLE_CLOUD_API_KEY = env('GOOGLE_CLOUD_API_KEY')
 # Stripe
 STRIPE_API_KEY = env('STRIPE_API_KEY')
 STRIPE_PUBLISHABLE_KEY = env('STRIPE_PUBLISHABLE_KEY')
+
+# ReCAPTCHA v3
+RECAPTCHA_SITE_KEY = env('RECAPTCHA_SITE_KEY')
+RECAPTCHA_SECRET_KEY = env('RECAPTCHA_SECRET_KEY')

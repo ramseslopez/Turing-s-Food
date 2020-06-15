@@ -13,6 +13,11 @@ token_generator = PasswordResetTokenGenerator()
 STATIC_ROOT = os.path.join(settings.BASE_DIR, 'static')
 
 
+def check_token(user, token):
+    """Checks if token is valid"""
+    return token_generator.check_token(user, token)
+
+
 def send_email_confirmation(user, request):
     """Sends an email confirmation for new user"""
     if request.is_secure():
@@ -42,8 +47,3 @@ def send_email_confirmation(user, request):
     msg.attach_file(regular_font)
     msg.attach_file(bold_font)
     msg.send()
-
-
-def check_token(user, token):
-    """Checks if token is valid"""
-    return token_generator.check_token(user, token)

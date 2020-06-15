@@ -61,7 +61,13 @@
     autocomplete="current-password" 
     required
   />
-  <button class="btn btn-lg btn-turing btn-block mt-3" type="submit">
+  <button
+    class="g-recaptcha btn btn-lg btn-turing btn-block mt-3"
+    data-sitekey="{{ RECAPTCHA_SITE_KEY }}" 
+    data-callback='onSubmit' 
+    data-action='submit'
+    type="submit"
+  >
     Iniciar Sesión
   </button>
   <div class="container mt-4">
@@ -77,6 +83,7 @@
 
 
 {% block scripts %}
+  <script src="https://www.google.com/recaptcha/api.js"></script>
   <script src="{% static 'js/login.js' %}"></script>
 {% endblock scripts %}
   
