@@ -150,7 +150,7 @@ class OrderRateView(UserPassesTestMixin, LoginRequiredMixin, UpdateView):
     model = Order
     template_name = 'orders/rate.html'
     fields = ['rating', ]
-    success_url = reverse_lazy('orders:list')
+    success_url = reverse_lazy('orders:thanks')
 
     def test_func(self):
         """Checks if user owns this order and is not rated yet"""

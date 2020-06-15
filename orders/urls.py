@@ -1,6 +1,7 @@
 """Orders app URL config"""
 
 from django.urls import path
+from django.views.generic import TemplateView
 
 from . import views
 
@@ -18,4 +19,9 @@ urlpatterns = [
     path('pickup', views.OrderPickUpView.as_view(), name='pickup'),
     path('delivered', views.OrderDeliveredView.as_view(), name='delivered'),
     path('rate/<int:pk>', views.OrderRateView.as_view(), name='rate'),
+    path(
+        route='thanks',
+        view=TemplateView.as_view(template_name='orders/thanks.html'),
+        name='thanks'
+    )
 ]
