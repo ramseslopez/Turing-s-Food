@@ -10,8 +10,30 @@
   <h1 class="title">
     Bienvenido, {{ request.user.first_name }}
   </h1>
-  <a role="button" class="btn btn-turing" href="">Gestionar direcciones</a>
-  <a role="button" class="btn btn-dark" href="">Gestionar métodos de pago</a>
-  <a role="button" class="btn btn-danger" href="{% url 'users:logout' %}">Cerrar sesión</a>
+  <a role="button" class="btn btn-outline-danger" href="{% url 'users:logout' %}">
+    Cerrar sesión
+  </a>
+</section>
+<section class="container">
+  <h2 class="text-turing">
+    Órdenes pasadas
+  </h2>
+
+  {% for order in order_list %}
+  <article class="mt-4">
+    <h4>{{ order }}</h4>
+    <p>${{ order.amount|stringformat:'.2f' }}</p>
+    <pre>{{ order.description }}</pre>
+
+    {% if order.rating %}
+    <p class="text-turing">
+      Calificado con {{ order.rating|stringformat:'.1f' }} estrellas
+    </p>
+    {% endif %}
+  </article>
+  {% empty %}
+  <p class="mb-0">Aún no has ordenado nada.</p>
+  <p>¿Qué esperas para hacer tu primer pedido?</p>
+  {% endfor %}
 </section>
 {% endblock content %}

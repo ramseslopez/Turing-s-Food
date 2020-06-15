@@ -12,6 +12,7 @@ from .forms import SignupForm
 from .mixins import ReCaptchaV3Mixin
 from .models import DeliveryMan
 from .utils import send_email_confirmation, check_token
+from orders.models import Order
 
 
 class LoginView(ReCaptchaV3Mixin, auth_views.LoginView):
@@ -101,9 +102,14 @@ class SignupView(ReCaptchaV3Mixin, FormView):
         return super().form_valid(form)
 
 
-class ProfileView(LoginRequiredMixin, TemplateView):
-    """User registry"""
+class ProfileView(LoginRequiredMixin, ListView):
+    """User profile"""
+    model = Order
     template_name = 'users/profile.html'
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        return queryset.filter(status=5)
 
 
 class ConfirmationSent(TemplateView):
