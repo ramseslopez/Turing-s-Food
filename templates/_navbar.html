@@ -42,10 +42,7 @@
         <div class="dropdown-menu" aria-labelledby="userDropdown">
           <h6 class="dropdown-header">Bienvenido, {{ request.user.first_name }}</h6>
           <a class="dropdown-item" href="{% url 'users:profile' %}">Ver perfil</a>
-          {% if request.user.status == 1 %}
-          <a class="dropdown-item" href="#">Gestionar direcciones</a>
-          <a class="dropdown-item" href="#">Gestionar métodos de pago</a>
-          {% elif request.user.status == 3 %}
+          {% if request.user.status == 3 %}
           <a class="dropdown-item" href="{% url 'menu:add_to_menu' %}">Añadir artículo</a>
           <a class="dropdown-item" href="{% url 'users:delivery_men' %}">Gestionar repartidores</a>
           {% endif %}
